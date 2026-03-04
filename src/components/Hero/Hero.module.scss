@@ -1,0 +1,234 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #0d0e11;
+
+  // Radial dot grid pattern
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.07) 1px,
+      transparent 1px
+    );
+    background-size: 40px 40px;
+    z-index: 0;
+  }
+}
+
+// Glow effects
+.glowCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 400px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(240, 106, 65, 0.18) 0%,
+    transparent 70%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+.glowLeft {
+  position: absolute;
+  top: 30%;
+  left: -100px;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(200, 50, 20, 0.12) 0%,
+    transparent 70%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+.glowRight {
+  position: absolute;
+  top: 40%;
+  right: -100px;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(200, 50, 20, 0.1) 0%,
+    transparent 70%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+// Floating icon cards
+.floatingIcon {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  background: rgba(31, 33, 40, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #606370;
+  z-index: 1;
+  backdrop-filter: blur(8px);
+  animation: float 6s ease-in-out infinite;
+
+  &.topLeft {
+    top: 28%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+
+  &.topRight {
+    top: 25%;
+    right: 10%;
+    animation-delay: 1.5s;
+  }
+
+  &.bottomLeft {
+    bottom: 28%;
+    left: 12%;
+    animation-delay: 3s;
+  }
+
+  &.bottomRight {
+    bottom: 25%;
+    right: 12%;
+    animation-delay: 4.5s;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+// Main content
+.content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem;
+  padding: 2rem;
+  max-width: 680px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 100px;
+  padding: 0.35rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #bebec8;
+  letter-spacing: 0.02em;
+}
+
+.headline {
+  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+
+  em {
+    font-style: normal;
+    text-decoration: underline;
+    text-decoration-color: rgba(240, 106, 65, 0.5);
+    text-underline-offset: 4px;
+  }
+}
+
+.accent {
+  color: #f06a41;
+}
+
+.subheadline {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #8a8a96;
+  max-width: 440px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.primaryCta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: linear-gradient(90deg, #c94f2a 0%, #f06a41 100%);
+  color: white;
+  border: none;
+  border-radius: 100px;
+  padding: 0.65rem 0.65rem 0.65rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  font-family: inherit;
+  box-shadow: 0 0 30px rgba(240, 106, 65, 0.3);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(240, 106, 65, 0.45);
+  }
+
+  .arrowContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.secondaryCta {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  border: none;
+  color: #8a8a96;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  font-family: inherit;
+
+  &:hover {
+    color: #fff;
+  }
+}
