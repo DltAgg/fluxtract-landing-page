@@ -1,0 +1,62 @@
+@use "../../../styles/mixins" as *;
+@use "../../../styles/variables" as *;
+
+$color-divider: #474747;
+$width-divider: 1px;
+$page-slot-min-height: $spacing-4;
+
+.pageSlot,
+.row,
+.sideLeft,
+.sideRight,
+.center {
+  background: transparent;
+}
+
+.pageSlot {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.dividerTop {
+  @include divider(bottom, $color-divider, $width-divider);
+}
+
+.dividerBottom {
+  @include divider(top, $color-divider, $width-divider);
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+
+  &.empty {
+    min-height: $page-slot-min-height;
+  }
+}
+
+.sideLeft {
+  width: 5%;
+  flex-shrink: 0;
+  align-self: stretch;
+  @include divider(right, $color-divider, $width-divider);
+}
+
+.sideRight {
+  width: 5%;
+  flex-shrink: 0;
+  align-self: stretch;
+  @include divider(left, $color-divider, $width-divider);
+}
+
+$center-padding-x: $spacing-2;
+$center-padding-y: $spacing-2;
+
+.center {
+  width: 90%;
+  flex-shrink: 0;
+  padding: $center-padding-y $center-padding-x;
+}

@@ -5,6 +5,15 @@
   --primary-hover: #d75932;
   --secondary: #1f2128;
   --border: #333640;
+
+  /* Header layout tokens */
+  --header-height: 70px;
+  --page-slot-padding-y: 8px;
+  --page-slot-divider-width: 1px;
+  --header-total-height: calc(
+    (var(--page-slot-divider-width) * 2 + var(--page-slot-padding-y) * 2) +
+    (var(--page-slot-divider-width) * 2 + var(--page-slot-padding-y) * 2 + var(--header-height))
+  );
 }
 
 html,

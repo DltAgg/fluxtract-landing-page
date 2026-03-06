@@ -1,0 +1,35 @@
+@use "../../../styles/variables" as vars;
+
+.ctaButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(90deg, #f0d8ce 0%, #e8956a 20%, #c95c35 55%, #af3825 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: vars.$corner-full;
+  padding: 6px 6px 6px 19px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  font-family: inherit;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(209, 125, 71, 0.4);
+  }
+
+  .arrowContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    color: vars.$base-dark;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+  }
+}

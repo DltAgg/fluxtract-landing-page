@@ -1,45 +1,38 @@
 import styles from "./Header.module.scss";
 import Link from "next/link";
+import Image from "next/image";
+import { PageSlot } from "@/components/shared/page-slot/PageSlot";
+import { CtaButton } from "@/components/shared/cta-button/CtaButton";
 
 export function Header() {
   return (
-    <header className={styles.header}>
-      <div className={styles.container}>
-        <div className={styles.logo}>
-          <div className={styles.logoIcon}>
-            {/* Simple representation of the logo icon */}
-            <div className={styles.bookLeft}></div>
-            <div className={styles.bookRight}></div>
+    <>
+      <PageSlot>
+        <div className={styles.spacer} />
+      </PageSlot>
+      <header className={styles.header}>
+        <div className={styles.container}>
+          <div className={styles.logo}>
+            <Image
+              src="/logotype.png"
+              alt="Fluxtract"
+              height={36}
+              width={160}
+              style={{ objectFit: "contain" }}
+            />
           </div>
-          <span>Fluxtract</span>
+
+          <nav className={styles.nav}>
+            <Link href="/">Home</Link>
+            <Link href="/about">About</Link>
+            <Link href="/how-it-works">How it works</Link>
+            <Link href="/templates">Templates</Link>
+            <Link href="/pricing">Pricing</Link>
+          </nav>
+
+          <CtaButton />
         </div>
-
-        <nav className={styles.nav}>
-          <Link href="/">Home</Link>
-          <Link href="/about">About</Link>
-          <Link href="/how-it-works">How it works</Link>
-          <Link href="/templates">Templates</Link>
-          <Link href="/pricing">Pricing</Link>
-        </nav>
-
-        <button className={styles.cta}>
-          Subscribe
-          <span className={styles.arrowContainer}>
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </span>
-        </button>
-      </div>
-    </header>
+      </header>
+    </>
   );
 }

@@ -1,13 +1,11 @@
 import styles from "./Hero.module.scss";
+import { PageSlot } from "@/components/shared/page-slot/PageSlot";
+import { CtaButton } from "@/components/shared/cta-button/CtaButton";
 
 export function Hero() {
   return (
-    <section className={styles.hero}>
-      {/* Ambient background glow */}
-      <div className={styles.glowCenter} />
-      <div className={styles.glowLeft} />
-      <div className={styles.glowRight} />
-
+    <PageSlot>
+      <section className={styles.hero}>
       {/* Floating corner icons */}
       <div className={`${styles.floatingIcon} ${styles.topLeft}`}>
         <svg
@@ -82,23 +80,7 @@ export function Hero() {
         </p>
 
         <div className={styles.actions}>
-          <button className={styles.primaryCta}>
-            Get early access
-            <span className={styles.arrowContainer}>
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </span>
-          </button>
+          <CtaButton label="Get early access" />
 
           <button className={styles.secondaryCta}>
             See how it works
@@ -117,6 +99,7 @@ export function Hero() {
           </button>
         </div>
       </div>
-    </section>
+      </section>
+    </PageSlot>
   );
 }

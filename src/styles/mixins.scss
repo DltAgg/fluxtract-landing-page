@@ -1,0 +1,9 @@
+@mixin divider($side: right, $color: #474747, $width: 1px) {
+  border-#{$side}: $width solid $color;
+}
+
+@mixin glass-background($bg: rgba(31, 33, 40, 0.4), $blur: 24px) {
+  background: $bg;
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+}
