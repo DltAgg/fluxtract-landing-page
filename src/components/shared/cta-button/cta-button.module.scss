@@ -4,18 +4,23 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: linear-gradient(90deg, #f0d8ce 0%, #e8956a 20%, #c95c35 55%, #af3825 100%);
+  background: linear-gradient(
+    90deg,
+    #d68a6e 0%,
+    #c06040 15%,
+    #b84830 50%,
+    #af3825 100%
+  );
   color: #ffffff;
   border: none;
   border-radius: vars.$corner-full;
   padding: 6px 6px 6px 19px;
-  font-size: 0.95rem;
+  font-size: vars.$font-size-ui;
   font-weight: 600;
   cursor: pointer;
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
-  font-family: inherit;
 
   &:hover {
     transform: translateY(-1px);
@@ -29,7 +34,7 @@
     background: #fff;
     color: vars.$base-dark;
     border-radius: 50%;
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
   }
 }

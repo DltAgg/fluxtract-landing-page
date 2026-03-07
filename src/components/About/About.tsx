@@ -1,14 +1,13 @@
 import styles from "./About.module.scss";
 import { PageSlot } from "@/components/shared/page-slot/PageSlot";
+import { SectionBadge } from "@/components/shared/section-badge/SectionBadge";
 
 export function About() {
   return (
     <PageSlot>
       <section className={styles.about}>
         <div className={styles.content}>
-          <div className={styles.badge}>
-            <span>About</span>
-          </div>
+          <SectionBadge label="About" />
 
           <h2 className={styles.headline}>Drowning in documents?</h2>
 

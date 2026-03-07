@@ -8,6 +8,7 @@ export function Header() {
   return (
     <>
       <PageSlot>
+        {/* keep this spacer */}
         <div className={styles.spacer} />
       </PageSlot>
       <header className={styles.header}>

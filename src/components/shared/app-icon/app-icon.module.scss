@@ -1,0 +1,55 @@
+@use "../../../styles/variables" as vars;
+@use "../../../styles/mixins" as mix;
+
+.wrapper {
+  position: absolute;
+  border: 1px solid #282828;
+  padding: 7px;
+  z-index: 0;
+
+  // Corner SVGs
+  > svg {
+    position: absolute;
+    width: 14px;
+    height: 13px;
+
+    &:nth-child(1) { top: -7px;  left: -7px; }
+    &:nth-child(2) { top: -7px;  right: -7px; transform: scaleX(-1); }
+    &:nth-child(3) { bottom: -7px; left: -7px;  transform: scaleY(-1); }
+    &:nth-child(4) { bottom: -7px; right: -7px; transform: scale(-1); }
+  }
+
+  &.topLeft {
+    top: 28%;
+    left: 10%;
+  }
+
+  &.topRight {
+    top: 25%;
+    right: 10%;
+  }
+
+  &.bottomLeft {
+    bottom: 28%;
+    left: 12%;
+  }
+
+  &.bottomRight {
+    bottom: 25%;
+    right: 12%;
+  }
+}
+
+.iconCard {
+  @include mix.accent-gradient-border(1px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: rgba(101, 101, 101, 0.14);
+  border-radius: vars.$corner-sm;
+  color: vars.$color-accent;
+  backdrop-filter: blur(24px);
+}
+

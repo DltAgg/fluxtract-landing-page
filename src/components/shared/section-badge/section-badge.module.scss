@@ -1,0 +1,22 @@
+@use "../../../styles/variables" as vars;
+@use "../../../styles/mixins" as mix;
+
+.badge {
+  @include mix.accent-gradient-border(1px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: vars.$corner-full;
+  background: rgba(74, 74, 74, 0.14);
+  backdrop-filter: blur(24.5px);
+  -webkit-backdrop-filter: blur(24.5px);
+
+  span {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #ffffff;
+    white-space: nowrap;
+    line-height: normal;
+  }
+}
