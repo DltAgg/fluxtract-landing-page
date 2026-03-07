@@ -1,9 +1,9 @@
 import { SectionLayout } from "@/components/shared/section-layout/SectionLayout";
 
-export function About() {
+export function Pricing() {
   return (
-    <SectionLayout sectionName="about">
-      <p>content of the about section</p>
+    <SectionLayout sectionName="pricing">
+      <p>content of the pricing section</p>
     </SectionLayout>
   );
 }

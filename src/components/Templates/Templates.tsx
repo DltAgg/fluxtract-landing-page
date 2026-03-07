@@ -1,9 +1,9 @@
 import { SectionLayout } from "@/components/shared/section-layout/SectionLayout";
 
-export function About() {
+export function Templates() {
   return (
-    <SectionLayout sectionName="about">
-      <p>content of the about section</p>
+    <SectionLayout sectionName="templates">
+      <p>content of the templates section</p>
     </SectionLayout>
   );
 }

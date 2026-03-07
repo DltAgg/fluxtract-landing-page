@@ -12,7 +12,10 @@
   --page-slot-divider-width: 1px;
   --header-total-height: calc(
     (var(--page-slot-divider-width) * 2 + var(--page-slot-padding-y) * 2) +
-    (var(--page-slot-divider-width) * 2 + var(--page-slot-padding-y) * 2 + var(--header-height))
+      (
+        var(--page-slot-divider-width) * 2 + var(--page-slot-padding-y) * 2 +
+          var(--header-height)
+      )
   );
 }
 
@@ -23,6 +26,7 @@ body {
 }
 
 body {
+  overflow-y: hidden;
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-league-spartan), sans-serif;

@@ -1,7 +1,6 @@
 @use "../../../styles/mixins" as *;
 @use "../../../styles/variables" as *;
 
-$color-divider: #474747;
 $width-divider: 1px;
 $page-slot-min-height: $spacing-4;
 
@@ -14,6 +13,7 @@ $page-slot-min-height: $spacing-4;
 }
 
 .pageSlot {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;

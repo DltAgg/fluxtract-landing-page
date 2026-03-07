@@ -7,7 +7,7 @@ import { CtaButton } from "@/components/shared/cta-button/CtaButton";
 export function Header() {
   return (
     <>
-      <PageSlot>
+      <PageSlot dividerTop dividerBottom>
         {/* keep this spacer */}
         <div className={styles.spacer} />
       </PageSlot>

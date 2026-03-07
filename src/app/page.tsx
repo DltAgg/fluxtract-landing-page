@@ -1,6 +1,4 @@
-import { Header } from "@/components";
-import { Hero } from "@/components";
-import { About } from "@/components";
+import { Header, Hero, About, HowItWorks, Templates, Pricing } from "@/components";
 import { PageSlot } from "@/components/shared/page-slot/PageSlot";
 
 export default function Home() {
@@ -10,6 +8,9 @@ export default function Home() {
       <Header />
       <Hero />
       <About />
+      <HowItWorks />
+      <Templates />
+      <Pricing />
     </>
   );
 }
