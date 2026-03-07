@@ -1,0 +1,359 @@
+@use "../../styles/variables" as vars;
+@use "../../styles/mixins" as mix;
+
+/* ── Grid ─────────────────────────────────────────────── */
+
+.grid {
+  display: grid;
+  grid-template-columns: 562px 410px;
+  gap: vars.$spacing-8;
+  justify-content: center;
+  width: 100%;
+  max-width: 1004px;
+  margin: 0 auto;
+}
+
+/* ── Columns ──────────────────────────────────────────── */
+
+.colLeft {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-8;
+}
+
+.colRight {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-8;
+}
+
+.bottomRow {
+  display: flex;
+  gap: vars.$spacing-8;
+}
+
+/* ── Shared card base ─────────────────────────────────── */
+
+.card {
+  border-radius: 22px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Card: Hero (top-left) ────────────────────────────── */
+
+.cardHero {
+  composes: card;
+  background: #0b0e12;
+  height: 326px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: vars.$spacing-8;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 200px;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(vars.$color-accent, 0.25) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+}
+
+.cardHeroText {
+  font-size: 42px;
+  font-weight: 500;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.15;
+  max-width: 420px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Card: Quote (bottom-left, left) ──────────────────── */
+
+.cardQuote {
+  composes: card;
+  background: vars.$color-dark-orange;
+  flex: 1;
+  min-height: 223px;
+  padding: vars.$spacing-6;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.quoteMark {
+  position: absolute;
+  top: -8px;
+  left: 12px;
+  font-size: 120px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.12);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.cardQuoteText {
+  font-size: 30px;
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 34px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Card: Notifications (bottom-left, right) ─────────── */
+
+.cardNotifications {
+  composes: card;
+  background: #0b0e12;
+  flex: 1;
+  min-height: 223px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: vars.$spacing-5;
+  gap: vars.$spacing-2;
+}
+
+.notifStack {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-2;
+}
+
+.notifItem {
+  display: flex;
+  align-items: center;
+  gap: vars.$spacing-2;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: vars.$corner-full;
+  padding: vars.$spacing-2 vars.$spacing-3;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: vars.$font-size-xs;
+  transition: opacity 0.3s ease;
+
+  &:nth-child(1) {
+    opacity: 0.25;
+  }
+
+  &:nth-child(2) {
+    opacity: 0.5;
+  }
+
+  &:nth-child(3) {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.85);
+  }
+}
+
+.notifIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(vars.$color-accent, 0.25);
+  flex-shrink: 0;
+
+  svg {
+    width: 12px;
+    height: 12px;
+    color: vars.$color-accent;
+  }
+}
+
+.notifText {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: vars.$font-size-xs;
+}
+
+.notifAction {
+  font-size: 10px;
+  color: vars.$color-accent;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+/* ── Card: Gradient (top-right) ───────────────────────── */
+
+.cardGradient {
+  composes: card;
+  background: linear-gradient(
+    152deg,
+    #e8a87c 0%,
+    vars.$color-accent 45%,
+    vars.$color-dark-orange 100%
+  );
+  height: 209px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: vars.$spacing-8;
+}
+
+.cardGradientText {
+  font-size: 42px;
+  font-weight: 500;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.15;
+
+  .light {
+    font-weight: 300;
+  }
+}
+
+/* ── Card: Pipeline (bottom-right) ────────────────────── */
+
+.cardPipeline {
+  composes: card;
+  background: #0b0e12;
+  height: 339px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: vars.$spacing-8;
+  gap: vars.$spacing-6;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 15%;
+    left: -10%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(
+      circle,
+      rgba(vars.$color-dark-orange, 0.2) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 10%;
+    right: -10%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(
+      circle,
+      rgba(vars.$color-accent, 0.15) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+}
+
+/* ── Pipeline internals ───────────────────────────────── */
+
+.pipelineRow {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.pipelineStage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: vars.$spacing-2;
+}
+
+.pipelineStageInput {
+  align-self: flex-start;
+}
+
+.pipelineStageProcessing {
+  align-self: center;
+}
+
+.pipelineStageOutput {
+  align-self: flex-end;
+}
+
+.pill {
+  display: flex;
+  align-items: center;
+  gap: vars.$spacing-2;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: vars.$corner-full;
+  padding: vars.$spacing-2 vars.$spacing-4;
+}
+
+.pillLabel {
+  font-size: vars.$font-size-sm;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.pillIcons {
+  display: flex;
+  align-items: center;
+  gap: vars.$spacing-1;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    color: rgba(255, 255, 255, 0.6);
+  }
+}
+
+.processingSpinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    color: vars.$color-accent;
+    animation: spin 2s linear infinite;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Dashed arrows between pipeline stages ────────────── */
+
+.arrowsContainer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.arrowsSvg {
+  width: 100%;
+  height: 100%;
+}

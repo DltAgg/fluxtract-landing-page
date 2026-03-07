@@ -14,21 +14,21 @@ export const sectionContent: Record<SectionName, SectionContent> = {
       "With Fluxtract, there's no need for manual document processing, making your workflow smoother than ever.",
   },
   "how-it-works": {
-    badge: "How it works",
-    headline: "Simple. Fast. Automatic.",
+    badge: "How it works?",
+    headline: "Easy to build workflows",
     subheadline:
-      "Upload your documents, define your schema, and let Fluxtract handle the rest — structured data delivered in seconds.",
+      "Create a workflow in minutes to simplify your document analysis process.",
   },
   templates: {
     badge: "Templates",
-    headline: "Ready-made extraction flows",
+    headline: "Create templates",
     subheadline:
-      "Start with pre-built templates for invoices, contracts, receipts, and more — or create your own from scratch.",
+      "With templates, you can extract information from any kind of document more easily.",
   },
   pricing: {
     badge: "Pricing",
-    headline: "Plans that scale with you",
+    headline: "Get early access",
     subheadline:
-      "From solo professionals to enterprise teams, pick the plan that fits your document processing needs.",
+      "Subscribe to get notified when the app is launched and be among the first to try it out.",
   },
 };

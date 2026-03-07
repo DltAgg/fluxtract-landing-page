@@ -32,6 +32,7 @@ $page-slot-min-height: $spacing-4;
   flex-direction: row;
   align-items: center;
   width: 100%;
+  flex: 1;
 
   &.empty {
     min-height: $page-slot-min-height;
@@ -59,4 +60,13 @@ $center-padding-y: $spacing-2;
   width: 90%;
   flex-shrink: 0;
   padding: $center-padding-y $center-padding-x;
+
+  &.noPadding {
+    padding: 0;
+  }
+}
+
+.centerFull {
+  width: 100%;
+  flex-shrink: 0;
 }

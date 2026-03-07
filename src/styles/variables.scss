@@ -7,6 +7,7 @@ $font-size-xs: 12px;
 $font-size-sm: 14px;
 $font-size-ui: 16px;
 $font-size-base: 20px;
+$font-size-md: 24px;
 $font-size-lg: 32px;
 $font-size-xl: 40px;
 $font-size-2xl: 48px;
@@ -15,6 +16,7 @@ $font-size-3xl: 59px;
 // Base color tokens
 $base-dark: #05070b;
 $color-accent: #d17d47;
+$color-dark-orange: #af3825;
 $color-divider: #282828;
 
 // Corner / border-radius scale
@@ -24,6 +26,7 @@ $corner-md: 12px;
 $corner-lg: 16px;
 $corner-xl: 24px;
 $corner-2xl: 32px;
+$corner-3xl: 60px;
 $corner-full: 100px;
 
 // Modular spacing scale — base 4px, medium-high granularity

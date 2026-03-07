@@ -6,12 +6,21 @@ type Position = "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
 
 interface AppIconProps {
   icon: LucideIcon;
-  position: Position;
+  position?: Position;
+  bare?: boolean;
 }
 
-export function AppIcon({ icon: Icon, position }: AppIconProps) {
+export function AppIcon({ icon: Icon, position, bare = false }: AppIconProps) {
+  if (bare) {
+    return (
+      <div className={`${styles.iconCard} ${styles.bare}`}>
+        <Icon size={34} strokeWidth={1.7} />
+      </div>
+    );
+  }
+
   return (
-    <div className={`${styles.wrapper} ${styles[position]}`}>
+    <div className={`${styles.wrapper} ${position ? styles[position] : ""}`}>
       <DividerIntersection color="#282828" />
       <DividerIntersection color="#282828" />
       <DividerIntersection color="#282828" />

@@ -1,0 +1,113 @@
+@use "../../styles/variables" as vars;
+@use "../../styles/mixins" as mix;
+
+.panelWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.panels {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  width: 868px;
+  height: 408px;
+}
+
+// ── Left panel (glass card) ──
+.leftPanel {
+  @include mix.glass-background(rgba(101, 101, 101, 0.14), 24.75px);
+  position: relative;
+  z-index: 2;
+  width: 470px;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 22px;
+  padding: 38px 76px 38px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.formTitle {
+  font-size: 38px;
+  font-weight: 400;
+  line-height: 1.15;
+  background: linear-gradient(114deg, #ffffff 27%, vars.$color-dark-orange 104%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  outline: none;
+  font-size: 26px;
+  font-weight: 300;
+  color: #ffffff;
+  padding-bottom: 10px;
+  font-family: vars.$font-body;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.25);
+  }
+}
+
+// ── Right panel (orange gradient) ──
+.rightPanel {
+  position: relative;
+  z-index: 1;
+  width: 437px;
+  flex-shrink: 0;
+  margin-left: -39px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 22px;
+  overflow: hidden;
+  background: linear-gradient(
+    152deg,
+    rgb(255, 205, 161) 1.4%,
+    rgb(209, 125, 71) 22.7%,
+    rgb(175, 56, 37) 93.2%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phoneMockup {
+  width: 220px;
+  height: 320px;
+  border-radius: 28px;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transform: rotate(-25deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.phoneMockupLabel {
+  font-size: vars.$font-size-md;
+  font-weight: 600;
+  color: #ffffff;
+  transform: rotate(25deg);
+  letter-spacing: 1px;
+}

@@ -1,4 +1,4 @@
-import { Header, Hero, About, HowItWorks, Templates, Pricing } from "@/components";
+import { Header, Hero, About, HowItWorks, Templates, Pricing, Footer } from "@/components";
 import { PageSlot } from "@/components/shared/page-slot/PageSlot";
 
 export default function Home() {
@@ -11,6 +11,7 @@ export default function Home() {
       <HowItWorks />
       <Templates />
       <Pricing />
+      <Footer />
     </>
   );
 }

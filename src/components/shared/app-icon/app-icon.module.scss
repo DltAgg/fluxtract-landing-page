@@ -51,5 +51,11 @@
   border-radius: vars.$corner-sm;
   color: vars.$color-accent;
   backdrop-filter: blur(24px);
+
+  &.bare {
+    width: 64px;
+    height: 64px;
+    border-radius: vars.$corner-md;
+  }
 }
 
