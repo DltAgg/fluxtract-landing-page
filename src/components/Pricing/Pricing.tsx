@@ -4,7 +4,7 @@ import styles from "./Pricing.module.scss";
 
 export function Pricing() {
   return (
-    <SectionLayout sectionName="pricing">
+    <SectionLayout sectionName="pricing" id="pricing">
       <div className={styles.panelWrapper}>
         <div className={styles.panels}>
           {/* Left panel — glass sign-up card */}

@@ -17,6 +17,9 @@ const leagueSpartan = League_Spartan({
 export const metadata: Metadata = {
   title: "Fluxtract",
   description: "All your documents structured. Instantly.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

@@ -1,22 +1,38 @@
 @use "../../styles/variables" as vars;
 @use "../../styles/mixins" as mix;
 
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+// Layout visibility
+.desktop {
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.mobile {
+  display: none;
+  @media (max-width: 768px) {
+    display: block;
+  }
+}
+
+// Desktop 2-column row
+.row {
+  display: flex;
   width: 100%;
 }
 
-.row {
-  display: contents;
-}
-
 .left {
+  flex: 1;
   padding: vars.$spacing-6;
   border-right: 1px solid vars.$color-divider;
 }
 
+.leftSmallPadding {
+  padding: vars.$spacing-2;
+}
+
 .right {
+  flex: 1;
   padding: vars.$spacing-6;
 }
 
@@ -26,11 +42,11 @@
   overflow: hidden;
 }
 
-// Row 1 — left: icon row
+// Icon row
 .iconRow {
   display: flex;
-  gap: vars.$spacing-5;
-  justify-content: flex-start;
+  align-items: center;
+  gap: vars.$spacing-4;
 
   // Override AppIcon absolute positioning
   > div {
@@ -38,14 +54,43 @@
     top: auto;
     left: auto;
   }
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 
-// Row 2 — right: orange fill
+.otherSources {
+  @include mix.glass-background(rgba(101, 101, 101, 0.14), 24.75px);
+  border: 1px solid vars.$color-accent;
+  border-radius: 7px;
+  padding: 9px 11px;
+  font-size: vars.$font-size-base;
+  font-weight: 300;
+  line-height: 32px;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+// Orange panel — desktop
 .orangePanel {
   width: 100%;
   height: 100%;
   background: vars.$color-dark-orange;
   border-radius: vars.$corner-3xl 0 0 0;
+}
+
+// Orange panel — mobile
+.orangePanelMobile {
+  width: 100%;
+  min-height: 200px;
+  background: vars.$color-dark-orange;
+}
+
+// Mobile empty card placeholder
+.mobileEmpty {
+  min-height: 120px;
 }
 
 // Row 2 — left: card

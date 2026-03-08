@@ -12,30 +12,34 @@
   position: relative;
   display: flex;
   align-items: stretch;
-  width: 868px;
-  height: 408px;
+  width: 700px;
+  height: 340px;
 }
 
 // ── Left panel (glass card) ──
 .leftPanel {
   @include mix.glass-background(rgba(101, 101, 101, 0.14), 24.75px);
   position: relative;
-  z-index: 2;
-  width: 470px;
+  z-index: 1;
+  width: 385px;
   flex-shrink: 0;
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 22px;
-  padding: 38px 76px 38px 36px;
+  padding: 30px 70px 30px 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
 .formTitle {
-  font-size: 38px;
+  font-size: vars.$font-size-md;
   font-weight: 400;
   line-height: 1.15;
-  background: linear-gradient(114deg, #ffffff 27%, vars.$color-dark-orange 104%);
+  background: linear-gradient(
+    114deg,
+    #ffffff 27%,
+    vars.$color-dark-orange 104%
+  );
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -45,7 +49,7 @@
 .fields {
   display: flex;
   flex-direction: column;
-  gap: 35px;
+  gap: 28px;
 }
 
 .input {
@@ -54,7 +58,7 @@
   border: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   outline: none;
-  font-size: 26px;
+  font-size: vars.$font-size-ui;
   font-weight: 300;
   color: #ffffff;
   padding-bottom: 10px;
@@ -68,10 +72,10 @@
 // ── Right panel (orange gradient) ──
 .rightPanel {
   position: relative;
-  z-index: 1;
-  width: 437px;
+  z-index: 2;
+  width: 350px;
   flex-shrink: 0;
-  margin-left: -39px;
+  margin-left: -35px;
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 22px;
   overflow: hidden;
@@ -87,8 +91,8 @@
 }
 
 .phoneMockup {
-  width: 220px;
-  height: 320px;
+  width: 180px;
+  height: 260px;
   border-radius: 28px;
   background: linear-gradient(
     160deg,

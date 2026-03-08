@@ -7,6 +7,7 @@ interface PageSlotProps {
   dividerBottom?: boolean;
   hideSides?: boolean;
   noPadding?: boolean;
+  id?: string;
 }
 
 export function PageSlot({
@@ -15,12 +16,13 @@ export function PageSlot({
   dividerBottom = false,
   hideSides = false,
   noPadding = false,
+  id,
 }: PageSlotProps) {
   const hasChildren = !!children;
   const centerClass = `${styles.center} ${noPadding ? styles.noPadding : ""}`;
 
   return (
-    <div className={styles.pageSlot}>
+    <div id={id} className={`${styles.pageSlot} ${hideSides ? styles.hideSides : ""}`}>
       {dividerTop && <div className={styles.dividerTop} />}
       <div className={`${styles.row} ${!hasChildren ? styles.empty : ""}`}>
         {!hideSides && <div className={styles.sideLeft} />}
@@ -31,14 +33,14 @@ export function PageSlot({
 
       {dividerTop && (
         <>
-          <DividerIntersection style={{ position: "absolute", top: 0, left: hideSides ? 0 : "5%", transform: `translate(-50%, -50%)` }} />
-          <DividerIntersection style={{ position: "absolute", top: 0, right: hideSides ? 0 : "5%", transform: `translate(50%, -50%)` }} />
+          <DividerIntersection className={styles.intersectionTopLeft} />
+          <DividerIntersection className={styles.intersectionTopRight} />
         </>
       )}
       {dividerBottom && (
         <>
-          <DividerIntersection style={{ position: "absolute", bottom: 0, left: hideSides ? 0 : "5%", transform: `translate(-50%, 50%)` }} />
-          <DividerIntersection style={{ position: "absolute", bottom: 0, right: hideSides ? 0 : "5%", transform: `translate(50%, 50%)` }} />
+          <DividerIntersection className={styles.intersectionBottomLeft} />
+          <DividerIntersection className={styles.intersectionBottomRight} />
         </>
       )}
     </div>

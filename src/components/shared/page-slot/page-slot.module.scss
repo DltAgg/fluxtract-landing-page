@@ -40,14 +40,14 @@ $page-slot-min-height: $spacing-4;
 }
 
 .sideLeft {
-  width: 5%;
+  width: 4%;
   flex-shrink: 0;
   align-self: stretch;
   @include divider(right, $color-divider, $width-divider);
 }
 
 .sideRight {
-  width: 5%;
+  width: 4%;
   flex-shrink: 0;
   align-self: stretch;
   @include divider(left, $color-divider, $width-divider);
@@ -57,7 +57,7 @@ $center-padding-x: $spacing-2;
 $center-padding-y: $spacing-2;
 
 .center {
-  width: 90%;
+  width: 92%;
   flex-shrink: 0;
   padding: $center-padding-y $center-padding-x;
 
@@ -69,4 +69,46 @@ $center-padding-y: $spacing-2;
 .centerFull {
   width: 100%;
   flex-shrink: 0;
+}
+
+$intersection-offset-x: 4%; // matches sideLeft/sideRight width
+
+.intersectionTopLeft {
+  position: absolute;
+  top: 0;
+  left: $intersection-offset-x;
+  transform: translate(-50%, -50%);
+}
+
+.intersectionTopRight {
+  position: absolute;
+  top: 0;
+  right: $intersection-offset-x;
+  transform: translate(50%, -50%);
+}
+
+.intersectionBottomLeft {
+  position: absolute;
+  bottom: 0;
+  left: $intersection-offset-x;
+  transform: translate(-50%, 50%);
+}
+
+.intersectionBottomRight {
+  position: absolute;
+  bottom: 0;
+  right: $intersection-offset-x;
+  transform: translate(50%, 50%);
+}
+
+.hideSides {
+  .intersectionTopLeft,
+  .intersectionBottomLeft {
+    left: 0;
+  }
+
+  .intersectionTopRight,
+  .intersectionBottomRight {
+    right: 0;
+  }
 }

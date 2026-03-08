@@ -6,13 +6,14 @@ import { sectionContent, type SectionName } from "./section-content";
 interface SectionLayoutProps {
   sectionName: SectionName;
   children?: React.ReactNode;
+  id?: string;
 }
 
-export function SectionLayout({ sectionName, children }: SectionLayoutProps) {
+export function SectionLayout({ sectionName, children, id }: SectionLayoutProps) {
   const { badge, headline, subheadline } = sectionContent[sectionName];
 
   return (
-    <PageSlot dividerTop dividerBottom>
+    <PageSlot dividerTop dividerBottom id={id}>
       <section className={styles.section}>
         <div className={styles.header}>
           <SectionBadge label={badge} />

@@ -24,11 +24,11 @@ export function Header() {
           </div>
 
           <nav className={styles.nav}>
-            <Link href="/">Home</Link>
-            <Link href="/about">About</Link>
-            <Link href="/how-it-works">How it works</Link>
-            <Link href="/templates">Templates</Link>
-            <Link href="/pricing">Pricing</Link>
+            <Link href="#home">Home</Link>
+            <Link href="#about">About</Link>
+            <Link href="#how-it-works">How it works</Link>
+            <Link href="#templates">Templates</Link>
+            <Link href="#pricing">Pricing</Link>
           </nav>
 
           <CtaButton />
