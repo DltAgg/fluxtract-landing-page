@@ -1,0 +1,138 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+
+  &.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 356px;
+  height: 100dvh;
+  background: $base-dark;
+  z-index: 201;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  // Orange glow at bottom (matches Figma ellipse)
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 499px;
+    height: 454px;
+    background: radial-gradient(
+      ellipse,
+      rgba(175, 56, 37, 0.38) 0%,
+      transparent 65%
+    );
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &.open {
+    transform: translateX(0);
+  }
+
+  // Mobile: full-width
+  @include mobile {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+// Close button ">>" — top right, above all content
+.closeButton {
+  position: absolute;
+  top: 37px;
+  right: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+// Content wrapper — vertically centered
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  padding: 0 40px;
+}
+
+// Nav links
+.navLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+
+  a {
+    font-size: 24px;
+    font-weight: 500;
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    // Tablet: right-aligned (matches Figma tablet sidebar)
+    text-align: right;
+
+    &:hover {
+      color: $color-accent;
+    }
+  }
+
+  // Mobile: centered (matches Figma mobile sidebar)
+  @include mobile {
+    a {
+      text-align: center;
+    }
+  }
+}
+
+// Separator line below nav links
+.divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.15);
+  margin-top: 45px;
+}
+
+// CTA button — right-aligned on tablet, centered on mobile
+.ctaWrapper {
+  padding-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+
+  @include mobile {
+    justify-content: center;
+  }
+}
