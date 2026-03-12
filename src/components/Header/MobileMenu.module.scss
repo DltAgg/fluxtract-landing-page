@@ -4,16 +4,8 @@
 .backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.3);
   z-index: 200;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-
-  &.open {
-    opacity: 1;
-    pointer-events: all;
-  }
 }
 
 .sidebar {
@@ -24,43 +16,35 @@
   height: 100dvh;
   background: $base-dark;
   z-index: 201;
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
 
-  // Orange glow at bottom (matches Figma ellipse)
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: -80px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 499px;
-    height: 454px;
-    background: radial-gradient(
-      ellipse,
-      rgba(175, 56, 37, 0.38) 0%,
-      transparent 65%
-    );
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  &.open {
-    transform: translateX(0);
-  }
-
-  // Mobile: full-width
   @include mobile {
     width: 100%;
     max-width: none;
+    border-radius: 0;
   }
 }
 
-// Close button ">>" — top right, above all content
+.contentClip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glowContainer {
+  position: absolute;
+  right: -249px;
+  // orb center starts at the bottom edge — entry animation happens here, then floats upward
+  top: calc(100dvh - 227px);
+  pointer-events: none;
+  z-index: 0;
+}
+
 .closeButton {
   position: absolute;
   top: 37px;
@@ -80,7 +64,6 @@
   }
 }
 
-// Content wrapper — vertically centered
 .content {
   position: relative;
   z-index: 1;
@@ -91,7 +74,6 @@
   padding: 0 40px;
 }
 
-// Nav links
 .navLinks {
   display: flex;
   flex-direction: column;
@@ -103,7 +85,6 @@
     color: #ffffff;
     text-decoration: none;
     transition: color 0.2s ease;
-    // Tablet: right-aligned (matches Figma tablet sidebar)
     text-align: right;
 
     &:hover {
@@ -111,7 +92,6 @@
     }
   }
 
-  // Mobile: centered (matches Figma mobile sidebar)
   @include mobile {
     a {
       text-align: center;
@@ -119,14 +99,12 @@
   }
 }
 
-// Separator line below nav links
 .divider {
   height: 1px;
   background: rgba(255, 255, 255, 0.15);
   margin-top: 45px;
 }
 
-// CTA button — right-aligned on tablet, centered on mobile
 .ctaWrapper {
   padding-top: 30px;
   display: flex;

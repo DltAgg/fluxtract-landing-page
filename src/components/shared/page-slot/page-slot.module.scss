@@ -21,10 +21,50 @@ $page-slot-min-height: $spacing-4;
 
 .dividerTop {
   @include divider(bottom, $color-divider, $width-divider);
+  position: relative;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    height: $width-divider;
+    width: 100vw;
+    background: $color-divider;
+    pointer-events: none;
+  }
+
+  &::before {
+    right: 100%;
+  }
+
+  &::after {
+    left: 100%;
+  }
 }
 
 .dividerBottom {
   @include divider(top, $color-divider, $width-divider);
+  position: relative;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: -$width-divider;
+    height: $width-divider;
+    width: 100vw;
+    background: $color-divider;
+    pointer-events: none;
+  }
+
+  &::before {
+    right: 100%;
+  }
+
+  &::after {
+    left: 100%;
+  }
 }
 
 .row {

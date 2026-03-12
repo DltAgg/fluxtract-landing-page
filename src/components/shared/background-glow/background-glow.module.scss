@@ -11,37 +11,16 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 600px;
-  height: 400px;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(240, 106, 65, 0.18) 0%,
-    transparent 70%
-  );
 }
 
 .glowLeft {
   position: absolute;
   top: 30%;
   left: -100px;
-  width: 350px;
-  height: 350px;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(200, 50, 20, 0.12) 0%,
-    transparent 70%
-  );
 }
 
 .glowRight {
   position: absolute;
   top: 40%;
   right: -100px;
-  width: 350px;
-  height: 350px;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(200, 50, 20, 0.1) 0%,
-    transparent 70%
-  );
 }
