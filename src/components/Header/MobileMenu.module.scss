@@ -1,0 +1,116 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 200;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 356px;
+  height: 100dvh;
+  background: $base-dark;
+  z-index: 201;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+
+  @include mobile {
+    width: 100%;
+    max-width: none;
+    border-radius: 0;
+  }
+}
+
+.contentClip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glowContainer {
+  position: absolute;
+  right: -249px;
+  // orb center starts at the bottom edge — entry animation happens here, then floats upward
+  top: calc(100dvh - 227px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.closeButton {
+  position: absolute;
+  top: 37px;
+  right: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  padding: 0 40px;
+}
+
+.navLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+
+  a {
+    font-size: 24px;
+    font-weight: 500;
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    text-align: right;
+
+    &:hover {
+      color: $color-accent;
+    }
+  }
+
+  @include mobile {
+    a {
+      text-align: center;
+    }
+  }
+}
+
+.divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.15);
+  margin-top: 45px;
+}
+
+.ctaWrapper {
+  padding-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+
+  @include mobile {
+    justify-content: center;
+  }
+}

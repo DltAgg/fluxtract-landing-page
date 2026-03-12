@@ -27,6 +27,14 @@ $header-top: $empty-slot-height + $divider-width + $center-padding-y;
   border-radius: $corner-md;
   border: 1px solid rgba(255, 255, 255, 0.15);
   background: rgba(101, 101, 101, 0.14);
+
+  // Widescreen: cap header at content max-width, centered
+  @include widescreen {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: calc(#{$bp-widescreen} * 0.92 - #{$center-padding-x * 2});
+  }
 }
 
 .spacer {
@@ -48,6 +56,13 @@ $header-top: $empty-slot-height + $divider-width + $center-padding-y;
   font-weight: 700;
   font-size: 1.25rem;
   color: #fff;
+}
+
+.logoImage {
+  @include mobile {
+    width: 120px !important;
+    height: auto !important;
+  }
 }
 
 .logoIcon {
@@ -87,5 +102,52 @@ $header-top: $empty-slot-height + $divider-width + $center-padding-y;
     &:hover {
       color: #fff;
     }
+  }
+
+  // Hidden on tablet and mobile
+  @include tablet-and-below {
+    display: none;
+  }
+}
+
+// Right section: CTA + hamburger
+.right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+// CTA wrapper: visible on desktop and tablet, hidden on mobile
+.ctaWrapper {
+  @include mobile {
+    display: none;
+  }
+}
+
+// Hamburger: hidden on desktop, shown on tablet and mobile
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+
+  span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+  }
+
+  @include tablet-and-below {
+    display: flex;
   }
 }

@@ -3,7 +3,7 @@ import { PageSlot } from "@/components/shared/page-slot/PageSlot";
 
 export default function Home() {
   return (
-    <>
+    <div className="pageWrapper">
       <PageSlot />
       <Header />
       <Hero />
@@ -12,6 +12,6 @@ export default function Home() {
       <Templates />
       <Pricing />
       <Footer />
-    </>
+    </div>
   );
 }

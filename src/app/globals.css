@@ -25,6 +25,13 @@ body {
   overflow-x: hidden;
 }
 
+/* Widescreen max-width: content stops growing beyond 1440px */
+.pageWrapper {
+  max-width: 1440px;
+  margin: 0 auto;
+  position: relative;
+}
+
 body {
   overflow-y: hidden;
   color: var(--foreground);

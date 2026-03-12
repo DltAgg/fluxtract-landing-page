@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fluxtract
+
+Landing page for **Fluxtract** — an AI-powered document intelligence platform that extracts, analyzes, and structures data from any document, delivering it to any channel automatically.
+
+## About
+
+Fluxtract eliminates manual document processing by automating data extraction across multiple formats. Users can feed documents from various sources, and the platform processes them using AI to output structured data wherever it's needed.
+
+**Currently in pre-launch phase** — the landing page features an early access waiting list.
+
+## Landing Page Sections
+
+- **Hero** — Main value proposition with calls-to-action for early access
+- **About** — Supported input formats (PDF, WhatsApp, Excel, Word, Gmail) and feature carousel
+- **How It Works** — Visual pipeline: Input → AI Processing → Output
+- **Templates** — Animated carousel showcasing 6 use-case templates (Resumes, Invoices, Legal Documents, Real Estate Contracts, Business Reports, Contact Extraction)
+- **Pricing** — Early access waiting list sign-up form
+- **Footer** — Navigation and social media links
+
+## Key Features
+
+- **Bulk extraction** — Process multiple documents at once
+- **Contract analysis** — Automate contract processing
+- **Keyword search** — Find information by searching specific terms
+- **Data analysis** — AI-powered document data processing
+- **Multi-format input** — PDF, Excel, Word, Email, WhatsApp
+- **Flexible output** — Deliver to chat, databases, or email
+
+## Tech Stack
+
+- **Next.js 16** (App Router)
+- **React 19**
+- **TypeScript**
+- **SCSS Modules**
+- **Motion** (animations)
+- **Lucide React** (icons)
+- **Fonts:** Outfit, League Spartan
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Install dependencies
+npm install
+
+# Run the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+├── app/            # Next.js App Router pages and layout
+├── components/     # React components (Header, Hero, About, HowItWorks, Templates, Pricing, Footer)
+└── assets/         # Static assets (images, icons)
+```

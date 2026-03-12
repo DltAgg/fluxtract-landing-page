@@ -1,0 +1,28 @@
+@keyframes orbPulse {
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.glowOrb {
+  background: radial-gradient(
+    ellipse at center,
+    var(--orb-color, rgba(175, 56, 37, 0.38)) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  animation: orbPulse 10s ease-in-out infinite;
+}

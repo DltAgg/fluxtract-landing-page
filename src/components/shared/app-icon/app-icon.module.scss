@@ -7,6 +7,11 @@
   padding: 7px;
   z-index: 0;
 
+  // Hide on very small screens
+  @media (max-width: 249px) {
+    display: none;
+  }
+
   // Corner SVGs
   > svg {
     position: absolute;
@@ -20,23 +25,43 @@
   }
 
   &.topLeft {
-    top: 28%;
-    left: 10%;
+    top: 16%;
+    left: 6%;
+
+    @include mix.mobile {
+      top: 5%;
+      left: 2%;
+    }
   }
 
   &.topRight {
-    top: 25%;
-    right: 10%;
+    top: 14%;
+    right: 6%;
+
+    @include mix.mobile {
+      top: 5%;
+      right: 2%;
+    }
   }
 
   &.bottomLeft {
-    bottom: 28%;
-    left: 12%;
+    bottom: 16%;
+    left: 7%;
+
+    @include mix.mobile {
+      bottom: 5%;
+      left: 2%;
+    }
   }
 
   &.bottomRight {
-    bottom: 25%;
-    right: 12%;
+    bottom: 14%;
+    right: 7%;
+
+    @include mix.mobile {
+      bottom: 5%;
+      right: 2%;
+    }
   }
 }
 
