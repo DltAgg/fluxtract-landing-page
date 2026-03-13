@@ -10,19 +10,6 @@
   overflow: hidden;
   background: transparent;
 
-  // Radial dot grid pattern
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(
-      circle,
-      rgba(255, 255, 255, 0.12) 1px,
-      transparent 1px
-    );
-    background-size: 24px 24px;
-    z-index: 0;
-  }
 }
 
 // Main content

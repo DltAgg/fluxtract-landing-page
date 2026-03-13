@@ -74,8 +74,11 @@
   height: 44px;
   background: rgba(101, 101, 101, 0.14);
   border-radius: vars.$corner-sm;
-  color: vars.$color-accent;
   backdrop-filter: blur(24px);
+
+  svg {
+    stroke: url(#icon-gradient);
+  }
 
   &.bare {
     width: 64px;

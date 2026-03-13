@@ -18,7 +18,7 @@
 
 // ── Left panel (glass card) ──
 .leftPanel {
-  @include mix.glass-background(rgba(101, 101, 101, 0.14), 24.75px);
+  @include mix.glass-background;
   position: relative;
   z-index: 1;
   width: 385px;
@@ -105,7 +105,6 @@
   align-items: center;
   justify-content: center;
   backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
 }
 
 .phoneMockupLabel {

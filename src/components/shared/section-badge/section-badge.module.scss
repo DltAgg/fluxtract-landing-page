@@ -3,14 +3,12 @@
 
 .badge {
   @include mix.accent-gradient-border(1px);
+  @include mix.glass-background;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 8px 14px;
   border-radius: vars.$corner-full;
-  background: rgba(74, 74, 74, 0.14);
-  backdrop-filter: blur(24.5px);
-  -webkit-backdrop-filter: blur(24.5px);
 
   span {
     font-size: 1rem;

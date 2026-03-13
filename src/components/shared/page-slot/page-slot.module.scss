@@ -70,7 +70,7 @@ $page-slot-min-height: $spacing-4;
 .row {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: stretch;
   width: 100%;
   flex: 1;
 
@@ -80,14 +80,14 @@ $page-slot-min-height: $spacing-4;
 }
 
 .sideLeft {
-  width: 4%;
+  width: var(--slot-side-width, 4%);
   flex-shrink: 0;
   align-self: stretch;
   @include divider(right, $color-divider, $width-divider);
 }
 
 .sideRight {
-  width: 4%;
+  width: var(--slot-side-width, 4%);
   flex-shrink: 0;
   align-self: stretch;
   @include divider(left, $color-divider, $width-divider);
@@ -97,12 +97,32 @@ $center-padding-x: $spacing-2;
 $center-padding-y: $spacing-2;
 
 .center {
-  width: 92%;
-  flex-shrink: 0;
+  flex: 1;
+  min-width: 0;
   padding: $center-padding-y $center-padding-x;
 
   &.noPadding {
     padding: 0;
+  }
+
+  &.dottedBg {
+    position: relative;
+    isolation: isolate;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 5px;
+      background-image: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.08) 1px,
+        transparent 1px
+      );
+      background-size: 18px 18px;
+      background-position: center center;
+      z-index: -1;
+      pointer-events: none;
+    }
   }
 }
 
@@ -111,33 +131,35 @@ $center-padding-y: $spacing-2;
   flex-shrink: 0;
 }
 
-$intersection-offset-x: 4%; // matches sideLeft/sideRight width
+.intersectionTopLeft,
+.intersectionTopRight,
+.intersectionBottomLeft,
+.intersectionBottomRight {
+  position: absolute;
+  z-index: 1;
+}
 
 .intersectionTopLeft {
-  position: absolute;
   top: 0;
-  left: $intersection-offset-x;
+  left: var(--slot-side-width, 4%);
   transform: translate(-50%, -50%);
 }
 
 .intersectionTopRight {
-  position: absolute;
   top: 0;
-  right: $intersection-offset-x;
+  right: var(--slot-side-width, 4%);
   transform: translate(50%, -50%);
 }
 
 .intersectionBottomLeft {
-  position: absolute;
   bottom: 0;
-  left: $intersection-offset-x;
+  left: var(--slot-side-width, 4%);
   transform: translate(-50%, 50%);
 }
 
 .intersectionBottomRight {
-  position: absolute;
   bottom: 0;
-  right: $intersection-offset-x;
+  right: var(--slot-side-width, 4%);
   transform: translate(50%, 50%);
 }
 
@@ -147,6 +169,20 @@ $intersection-offset-x: 4%; // matches sideLeft/sideRight width
     left: 0;
   }
 
+  .intersectionTopRight,
+  .intersectionBottomRight {
+    right: 0;
+  }
+}
+
+.noSideLeft {
+  .intersectionTopLeft,
+  .intersectionBottomLeft {
+    left: 0;
+  }
+}
+
+.noSideRight {
   .intersectionTopRight,
   .intersectionBottomRight {
     right: 0;

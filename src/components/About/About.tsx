@@ -22,35 +22,56 @@ export function About() {
 
       {/* Desktop */}
       <div className={styles.desktop}>
-        <PageSlot dividerBottom noPadding>
-          <div className={styles.row}>
-            <div className={styles.left}>{iconRowContent}</div>
-            <div className={styles.right} />
+        <div className={styles.columns}>
+          <div className={styles.columnLeft}>
+            <PageSlot
+              dottedBg
+              noPadding
+              hideSideRight
+              intersections={["bottomLeft", "bottomRight"]}
+            >
+              <div className={styles.iconRowPadded}>{iconRowContent}</div>
+            </PageSlot>
+            <PageSlot noPadding hideSideRight intersections={[]}>
+              <div className={styles.carouselPadded}>
+                <FeatureCarousel />
+              </div>
+            </PageSlot>
           </div>
-        </PageSlot>
-        <PageSlot dividerTop noPadding>
-          <div className={styles.row}>
-            <div className={`${styles.left} ${styles.leftSmallPadding}`}>
-              <FeatureCarousel />
-            </div>
-            <div className={`${styles.right} ${styles.rightNoPadding}`}>
-              <div className={styles.orangePanel} />
-            </div>
+          <div className={styles.columnRight}>
+            <PageSlot dividerBottom dottedBg hideSideLeft />
+            <PageSlot noPadding hideSideLeft intersections={[]}>
+              <div className={styles.orangePanel}>
+                <img
+                  src="/illustrations/folder.svg"
+                  alt=""
+                  className={styles.folderIllustration}
+                />
+              </div>
+            </PageSlot>
           </div>
-        </PageSlot>
+        </div>
       </div>
 
       {/* Mobile */}
       <div className={styles.mobile}>
-        <PageSlot>{iconRowContent}</PageSlot>
-        <PageSlot dividerTop dividerBottom>
+        <PageSlot dottedBg noPadding>
+          <div className={styles.mobileIconRow}>{iconRowContent}</div>
+        </PageSlot>
+        <PageSlot dividerTop>
           <FeatureCarousel />
         </PageSlot>
-        <PageSlot dividerTop dividerBottom>
+        <PageSlot dividerTop dividerBottom dottedBg>
           <div className={styles.mobileEmpty} />
         </PageSlot>
         <PageSlot noPadding>
-          <div className={styles.orangePanelMobile} />
+          <div className={styles.orangePanelMobile}>
+            <img
+              src="/illustrations/folder.svg"
+              alt=""
+              className={styles.folderIllustration}
+            />
+          </div>
         </PageSlot>
       </div>
     </>

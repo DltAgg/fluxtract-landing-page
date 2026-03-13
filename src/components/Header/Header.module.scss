@@ -13,8 +13,7 @@ $empty-slot-height: $center-padding-y * 2;
 $header-top: $empty-slot-height + $divider-width + $center-padding-y;
 
 .header {
-  backdrop-filter: blur(24.75px) !important;
-  -webkit-backdrop-filter: blur(24.75px);
+  @include glass-background;
   position: fixed;
   top: $header-top;
   left: calc(4% + #{$center-padding-x});
@@ -26,9 +25,7 @@ $header-top: $empty-slot-height + $divider-width + $center-padding-y;
   justify-content: center;
   border-radius: $corner-md;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(101, 101, 101, 0.14);
 
-  // Widescreen: cap header at content max-width, centered
   @include widescreen {
     left: 50%;
     right: auto;

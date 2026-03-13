@@ -1,25 +1,30 @@
-@use "../../styles/variables" as vars;
-@use "../../styles/mixins" as mix;
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
 
 /* ── Grid ─────────────────────────────────────────────── */
 
 .grid {
   display: grid;
   grid-template-columns: 1fr 0.73fr;
-  gap: vars.$spacing-6;
+  gap: $spacing-6;
   width: 70%;
   margin: 0 auto;
-  padding: vars.$spacing-8 0;
+  padding: $spacing-8 0;
   overflow: hidden;
 
-  @media (max-width: 1024px) {
+  @include tablet-and-below {
     width: 90%;
   }
 
-  @media (max-width: 768px) {
+  @include tablet {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @include mobile {
     grid-template-columns: 1fr;
     width: 100%;
-    padding: vars.$spacing-8 0;
+    gap: $spacing-2;
+    padding: 0;
   }
 }
 
@@ -28,62 +33,105 @@
 .colLeft {
   display: flex;
   flex-direction: column;
-  gap: vars.$spacing-6;
+  gap: $spacing-6;
   min-width: 0;
+
+  @include tablet {
+    display: contents;
+  }
+
+  @include mobile {
+    gap: $spacing-2;
+  }
 }
 
 .colRight {
   display: flex;
   flex-direction: column;
-  gap: vars.$spacing-6;
+  gap: $spacing-6;
   min-width: 0;
+
+  @include tablet {
+    display: contents;
+  }
+
+  @include mobile {
+    gap: $spacing-2;
+  }
 }
 
 .bottomRow {
   display: flex;
-  gap: vars.$spacing-6;
+  gap: $spacing-6;
 
-  @media (max-width: 480px) {
+  @include tablet {
+    display: contents;
+  }
+
+  @include mobile {
     flex-direction: column;
+    gap: $spacing-2;
   }
 }
 
 /* ── Card: Hero (top-left) ────────────────────────────── */
 
 .cardHero {
-  background: #0b0e12;
-  border-radius: vars.$corner-xl;
+  background: $soft-dark;
+  border-radius: $corner-xl;
   overflow: hidden;
   position: relative;
   min-height: 220px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: vars.$spacing-8;
+  padding: $spacing-8;
+  gap: $spacing-6;
 
-  @media (max-width: 768px) {
+  @include tablet {
+    grid-column: 1 / -1;
+  }
+
+  @include mobile {
     min-height: 200px;
   }
 
   &::before {
     content: "";
     position: absolute;
-    top: -60px;
+    top: -45%;
     left: 50%;
     transform: translateX(-50%);
-    width: 300px;
-    height: 200px;
+    width: 120%;
+    height: 120%;
     background: radial-gradient(
       ellipse at center,
-      rgba(vars.$color-accent, 0.25) 0%,
+      rgba($color-dark-orange, 0.9) 0%,
       transparent 70%
     );
     pointer-events: none;
   }
 }
 
+.cardHeroIllustration {
+  position: relative;
+  z-index: 1;
+  width: 55%;
+  max-width: 280px;
+  height: auto;
+  pointer-events: none;
+
+  @include tablet-and-below {
+    width: 45%;
+    max-width: 200px;
+  }
+}
+
 .cardHeroText {
-  font-size: 36px;
+  font-family: $font-display;
+  font-size: 28px;
+  font-style: normal;
   font-weight: 500;
   color: #ffffff;
   text-align: center;
@@ -92,138 +140,229 @@
   position: relative;
   z-index: 1;
 
-  @media (max-width: 768px) {
-    font-size: vars.$font-size-lg;
+  @include tablet-and-below {
+    font-size: $font-size-lg;
   }
 }
 
 /* ── Card: Quote (bottom-left, left) ──────────────────── */
 
 .cardQuote {
-  background: vars.$color-dark-orange;
-  border-radius: vars.$corner-xl;
+  background: $color-dark-orange;
+  border-radius: $corner-xl;
   overflow: hidden;
   position: relative;
   flex: 1;
-  min-height: 180px;
-  padding: vars.$spacing-6;
+  padding: $spacing-4 $spacing-5;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
 
-  @media (max-width: 480px) {
-    min-height: 160px;
+  @include tablet {
+    grid-row: 2;
+    grid-column: 1;
+  }
+
+  @media (min-width: 421px) and (max-width: 549px) {
+    aspect-ratio: 1 / 0.7;
+  }
+
+  @media (min-width: 550px) and (max-width: 767px) {
+    aspect-ratio: 1 / 0.5;
+  }
+
+  @media (max-width: 420px) {
+    aspect-ratio: 1 / 1;
   }
 }
 
 .quoteMark {
   position: absolute;
-  top: -8px;
-  left: 12px;
-  font-size: 120px;
+  top: 10px;
+  left: 20px;
+  font-family: $font-display;
+  font-size: 150px;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  opacity: 0.2;
   line-height: 1;
   pointer-events: none;
   user-select: none;
 }
 
 .cardQuoteText {
-  font-size: 24px;
-  font-weight: 400;
+  font-family: $font-display;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 500;
   color: #ffffff;
-  line-height: 30px;
+  line-height: 1.15;
   position: relative;
   z-index: 1;
 
-  @media (max-width: 768px) {
-    font-size: vars.$font-size-ui;
-    line-height: 1.4;
+  @include tablet-and-below {
+    font-size: $font-size-lg;
   }
 }
 
 /* ── Card: Notifications (bottom-left, right) ─────────── */
 
 .cardNotifications {
-  background: #0b0e12;
-  border-radius: vars.$corner-xl;
+  background: $soft-dark;
+  border-radius: $corner-xl;
   overflow: hidden;
   position: relative;
   flex: 1;
-  min-height: 180px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding: vars.$spacing-5;
-  gap: vars.$spacing-2;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-6;
 
-  @media (max-width: 480px) {
-    min-height: 160px;
+  @include tablet {
+    grid-row: 3;
+    grid-column: 1;
+  }
+
+  @media (min-width: 421px) and (max-width: 549px) {
+    aspect-ratio: 1 / 0.7;
+  }
+
+  @media (min-width: 550px) and (max-width: 767px) {
+    aspect-ratio: 1 / 0.5;
+  }
+
+  @media (max-width: 420px) {
+    aspect-ratio: 1 / 1;
   }
 }
 
 .notifStack {
   display: flex;
   flex-direction: column;
-  gap: vars.$spacing-2;
+  align-items: center;
+
+  > *:not(:first-child) {
+    margin-top: -28px;
+  }
+
+  > *:nth-child(1) { z-index: 1; }
+  > *:nth-child(2) { z-index: 2; }
+  > *:nth-child(3) { z-index: 3; }
 }
 
-.notifItem {
+.featuredNotif {
   display: flex;
   align-items: center;
-  gap: vars.$spacing-2;
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: vars.$corner-full;
-  padding: vars.$spacing-2 vars.$spacing-3;
-  color: rgba(255, 255, 255, 0.3);
-  font-size: vars.$font-size-xs;
-  transition: opacity 0.3s ease;
-
-  &:nth-child(1) {
-    opacity: 0.25;
-  }
-
-  &:nth-child(2) {
-    opacity: 0.5;
-  }
-
-  &:nth-child(3) {
-    opacity: 1;
-    background: rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.85);
-  }
+  gap: $spacing-3;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    $soft-dark;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: $corner-lg;
+  padding: $spacing-2 10px;
 }
 
-.notifIcon {
+.featuredNotifIcon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: rgba(vars.$color-accent, 0.25);
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    radial-gradient(
+      80% 80% at center,
+      rgba($color-accent, 1) 0%,
+      transparent 80%
+    ),
+    $soft-dark;
   flex-shrink: 0;
 
   svg {
-    width: 12px;
-    height: 12px;
-    color: vars.$color-accent;
+    width: 26px;
+    height: 26px;
+    color: #ffffff;
+    stroke-width: 3;
   }
 }
 
-.notifText {
-  flex: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: vars.$font-size-xs;
+.featuredNotifContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
-.notifAction {
-  font-size: 10px;
-  color: vars.$color-accent;
-  white-space: nowrap;
+.featuredNotifText {
+  font-family: $font-display;
+  font-size: $font-size-ui;
   font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+}
+
+.featuredNotifAction {
+  font-size: $font-size-sm;
+  color: #ffffffbd;
+  font-weight: 200;
+}
+
+.featuredNotifGhost {
+  padding: $spacing-2 $spacing-3;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      to top,
+      $soft-dark 0%,
+      $soft-dark 40%,
+      rgba($soft-dark, 0) 100%
+    );
+    pointer-events: none;
+  }
+}
+
+.featuredNotifGhostTop {
+  transform: scale(0.85);
+
+  &::after {
+    background: linear-gradient(
+      to top,
+      $soft-dark 0%,
+      $soft-dark 40%,
+      rgba($soft-dark, 0.1) 100%
+    );
+  }
+}
+
+.featuredNotifGhostMid {
+  transform: scale(0.92);
+
+  &::after {
+    background: linear-gradient(
+      to top,
+      $soft-dark 0%,
+      $soft-dark 40%,
+      rgba($soft-dark, 0.05) 100%
+    );
+  }
+}
+
+.featuredNotifTextGhost {
+  opacity: 0;
+}
+
+.featuredNotifIconGhost {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 /* ── Card: Gradient (top-right) ───────────────────────── */
@@ -232,32 +371,49 @@
   background: linear-gradient(
     152deg,
     #e8a87c 0%,
-    vars.$color-accent 45%,
-    vars.$color-dark-orange 100%
+    $color-accent 45%,
+    $color-dark-orange 100%
   );
-  border-radius: vars.$corner-xl;
+  border-radius: $corner-xl;
   overflow: hidden;
   position: relative;
   min-height: 140px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: vars.$spacing-8;
+  padding: $spacing-8;
 
-  @media (max-width: 768px) {
+  @include tablet {
+    grid-row: 2;
+    grid-column: 2;
     min-height: 120px;
+  }
+
+  @media (min-width: 421px) and (max-width: 549px) {
+    min-height: unset;
+    aspect-ratio: 1 / 0.7;
+  }
+
+  @media (min-width: 550px) and (max-width: 767px) {
+    min-height: unset;
+    aspect-ratio: 1 / 0.5;
+  }
+
+  @media (max-width: 420px) {
+    min-height: unset;
+    aspect-ratio: 1 / 1;
   }
 }
 
 .cardGradientText {
-  font-size: 36px;
+  font-size: 28px;
   font-weight: 500;
   color: #ffffff;
   text-align: center;
   line-height: 1.15;
 
-  @media (max-width: 768px) {
-    font-size: vars.$font-size-lg;
+  @include tablet-and-below {
+    font-size: $font-size-lg;
   }
 
   .light {
@@ -268,8 +424,19 @@
 /* ── Card: Pipeline (bottom-right) ────────────────────── */
 
 .cardPipeline {
-  background: #0b0e12;
-  border-radius: vars.$corner-xl;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba($color-dark-orange, 0.55) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at bottom left,
+      rgba($color-dark-orange, 0.55) 0%,
+      transparent 50%
+    ),
+    #0b0e12;
+  border-radius: $corner-xl;
   overflow: hidden;
   position: relative;
   flex: 1;
@@ -277,99 +444,93 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: vars.$spacing-8;
-  gap: vars.$spacing-6;
+  padding: $spacing-4 $spacing-5;
+  gap: $spacing-6;
 
-  @media (max-width: 768px) {
-    padding: vars.$spacing-6;
+  @include tablet {
+    grid-row: 3;
+    grid-column: 2;
   }
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: 15%;
-    left: -10%;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(
-      circle,
-      rgba(vars.$color-dark-orange, 0.2) 0%,
-      transparent 70%
-    );
-    pointer-events: none;
+  @media (min-width: 421px) and (max-width: 549px) {
+    aspect-ratio: 1 / 0.7;
   }
 
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: 10%;
-    right: -10%;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(
-      circle,
-      rgba(vars.$color-accent, 0.15) 0%,
-      transparent 70%
-    );
-    pointer-events: none;
+  @media (min-width: 550px) and (max-width: 767px) {
+    aspect-ratio: 1 / 0.5;
+  }
+
+  @media (max-width: 420px) {
+    padding: $spacing-6;
+    aspect-ratio: 1 / 1;
   }
 }
 
 /* ── Pipeline internals ───────────────────────────────── */
 
-.pipelineRow {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: space-between;
-}
-
-.pipelineStage {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: vars.$spacing-2;
-}
-
 .pipelineStageInput {
-  align-self: flex-start;
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
 }
 
 .pipelineStageProcessing {
-  align-self: center;
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
 
 .pipelineStageOutput {
-  align-self: flex-end;
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
 }
 
 .pill {
   display: flex;
   align-items: center;
-  gap: vars.$spacing-2;
+  gap: $spacing-2;
   background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: vars.$corner-full;
-  padding: vars.$spacing-2 vars.$spacing-4;
+  border: 1px solid transparent;
+  border-radius: $corner-full;
+  padding: $spacing-2 $spacing-4;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: $base-gradient;
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
 }
 
 .pillLabel {
-  font-size: vars.$font-size-sm;
+  font-family: $font-display;
+  font-size: $font-size-ui;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .pillIcons {
   display: flex;
   align-items: center;
-  gap: vars.$spacing-1;
+  gap: $spacing-1;
 
-  svg {
-    width: 18px;
-    height: 18px;
-    color: rgba(255, 255, 255, 0.6);
+  img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
   }
 }
 
@@ -379,10 +540,9 @@
   justify-content: center;
 
   svg {
-    width: 18px;
-    height: 18px;
-    color: vars.$color-accent;
-    animation: spin 2s linear infinite;
+    width: 22px;
+    height: 22px;
+    animation: spin 4s linear infinite;
   }
 }
 
