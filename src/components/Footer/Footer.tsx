@@ -1,7 +1,6 @@
 import styles from "./Footer.module.scss";
 import Link from "next/link";
 import Image from "next/image";
-import { Twitter, Facebook, Instagram, Youtube } from "lucide-react";
 import { PageSlot } from "@/components/shared/page-slot/PageSlot";
 
 export function Footer() {
@@ -32,7 +31,7 @@ export function Footer() {
               rel="noopener noreferrer"
               aria-label="X (Twitter)"
             >
-              <Twitter size={24} />
+              <Image src="/svg-icons/social/x.svg" alt="X" width={24} height={24} />
             </a>
             <a
               href="https://facebook.com"
@@ -40,7 +39,7 @@ export function Footer() {
               rel="noopener noreferrer"
               aria-label="Facebook"
             >
-              <Facebook size={24} />
+              <Image src="/svg-icons/social/f.svg" alt="Facebook" width={24} height={24} />
             </a>
             <a
               href="https://instagram.com"
@@ -48,7 +47,7 @@ export function Footer() {
               rel="noopener noreferrer"
               aria-label="Instagram"
             >
-              <Instagram size={24} />
+              <Image src="/svg-icons/social/instagram.svg" alt="Instagram" width={24} height={24} />
             </a>
             <a
               href="https://youtube.com"
@@ -56,7 +55,7 @@ export function Footer() {
               rel="noopener noreferrer"
               aria-label="YouTube"
             >
-              <Youtube size={24} />
+              <Image src="/svg-icons/social/youtube.svg" alt="YouTube" width={24} height={24} />
             </a>
           </div>
         </footer>

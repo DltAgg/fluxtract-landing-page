@@ -87,7 +87,7 @@ export function HowItWorks() {
   return (
     <>
       <SectionLayout sectionName="how-it-works" id="how-it-works" />
-      <PageSlot>
+      <PageSlot dottedBg>
         {/* <PageSlot dividerTop dividerBottom> */}
         <div className={styles.grid}>
           {/* ── Left column ──────────────────────────────── */}
