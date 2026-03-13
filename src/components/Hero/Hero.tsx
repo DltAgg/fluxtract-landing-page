@@ -7,7 +7,7 @@ import { FileStack, Scroll, FileSearchIcon, Signature } from "lucide-react";
 
 export function Hero() {
   return (
-    <PageSlot id="home">
+    <PageSlot id="home" dottedBg>
       <section className={styles.hero}>
       <AppIcon icon={FileStack} position="topLeft" />
       <AppIcon icon={Scroll} position="topRight" />

@@ -32,7 +32,7 @@
   transition: background 0.3s ease, backdrop-filter 0.3s ease;
   user-select: none;
 
-  @include mix.glass-background(rgba(101, 101, 101, 0.14), 24.75px);
+  @include mix.glass-background;
 
   &:hover {
     background: linear-gradient(
@@ -42,7 +42,6 @@
       rgb(175, 56, 37)
     );
     backdrop-filter: none;
-    -webkit-backdrop-filter: none;
 
     .icon {
       color: white;

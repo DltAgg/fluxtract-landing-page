@@ -62,7 +62,7 @@
 }
 
 .otherSources {
-  @include mix.glass-background(rgba(101, 101, 101, 0.14), 24.75px);
+  @include mix.glass-background;
   border: 1px solid vars.$color-accent;
   border-radius: 7px;
   padding: 9px 11px;
@@ -95,7 +95,7 @@
 
 // Row 2 — left: card
 .card {
-  @include mix.glass-background(rgba(101, 101, 101, 0.14), 24.75px);
+  @include mix.glass-background;
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 22px;
   padding: 30px;

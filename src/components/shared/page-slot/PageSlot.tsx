@@ -7,6 +7,7 @@ interface PageSlotProps {
   dividerBottom?: boolean;
   hideSides?: boolean;
   noPadding?: boolean;
+  dottedBg?: boolean;
   id?: string;
 }
 
@@ -16,10 +17,11 @@ export function PageSlot({
   dividerBottom = false,
   hideSides = false,
   noPadding = false,
+  dottedBg = false,
   id,
 }: PageSlotProps) {
   const hasChildren = !!children;
-  const centerClass = `${styles.center} ${noPadding ? styles.noPadding : ""}`;
+  const centerClass = `${styles.center} ${noPadding ? styles.noPadding : ""} ${dottedBg ? styles.dottedBg : ""}`;
 
   return (
     <div id={id} className={`${styles.pageSlot} ${hideSides ? styles.hideSides : ""}`}>

@@ -22,7 +22,7 @@ export function About() {
 
       {/* Desktop */}
       <div className={styles.desktop}>
-        <PageSlot dividerBottom noPadding>
+        <PageSlot dividerBottom noPadding dottedBg>
           <div className={styles.row}>
             <div className={styles.left}>{iconRowContent}</div>
             <div className={styles.right} />
@@ -42,11 +42,11 @@ export function About() {
 
       {/* Mobile */}
       <div className={styles.mobile}>
-        <PageSlot>{iconRowContent}</PageSlot>
+        <PageSlot dottedBg>{iconRowContent}</PageSlot>
         <PageSlot dividerTop dividerBottom>
           <FeatureCarousel />
         </PageSlot>
-        <PageSlot dividerTop dividerBottom>
+        <PageSlot dividerTop dividerBottom dottedBg>
           <div className={styles.mobileEmpty} />
         </PageSlot>
         <PageSlot noPadding>

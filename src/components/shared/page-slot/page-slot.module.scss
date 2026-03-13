@@ -104,6 +104,26 @@ $center-padding-y: $spacing-2;
   &.noPadding {
     padding: 0;
   }
+
+  &.dottedBg {
+    position: relative;
+    isolation: isolate;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 5px;
+      background-image: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.08) 1px,
+        transparent 1px
+      );
+      background-size: 18px 18px;
+      background-position: center center;
+      z-index: -1;
+      pointer-events: none;
+    }
+  }
 }
 
 .centerFull {
