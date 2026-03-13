@@ -3,16 +3,16 @@ import { PageSlot } from "@/components/shared/page-slot/PageSlot";
 import { CtaButton } from "@/components/shared/cta-button/CtaButton";
 import { SectionBadge } from "@/components/shared/section-badge/SectionBadge";
 import { AppIcon } from "@/components/shared/app-icon/AppIcon";
-import { FileStack, Scroll, FileSearchIcon, Signature } from "lucide-react";
+import { Signature, FileStack, FileSearchCorner, ChartNoAxesColumnDecreasing } from "lucide-react";
 
 export function Hero() {
   return (
     <PageSlot id="home" dottedBg>
       <section className={styles.hero}>
-      <AppIcon icon={FileStack} position="topLeft" />
-      <AppIcon icon={Scroll} position="topRight" />
-      <AppIcon icon={FileSearchIcon} position="bottomLeft" />
-      <AppIcon icon={Signature} position="bottomRight" />
+      <AppIcon icon={Signature} position="topLeft" />
+      <AppIcon icon={FileStack} position="topRight" />
+      <AppIcon icon={FileSearchCorner} position="bottomLeft" />
+      <AppIcon icon={ChartNoAxesColumnDecreasing} position="bottomRight" />
 
       <div className={styles.content}>
         <SectionBadge label="Powered by AI" />

@@ -1,7 +1,14 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight, FileStack, Scroll, FileSearchIcon, Signature } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Signature,
+  FileSearchCorner,
+  ChartNoAxesColumnDecreasing,
+  FileStack,
+} from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { AppIcon } from "@/components/shared/app-icon/AppIcon";
 import styles from "./About.module.scss";
@@ -16,24 +23,24 @@ interface Slide {
 
 const slides: Slide[] = [
   {
-    icon: FileStack,
-    title: "Contracts",
-    text: "Say goodbye to tedious manual document processing! Our innovative solution automates the entire process, allowing you to streamline.",
-  },
-  {
-    icon: Scroll,
-    title: "Bulk extraction",
-    text: "Eliminate the stress of pulling data from various documents! Our innovative solution automates the entire process, allowing you to efficiently collect information in bulk.",
-  },
-  {
-    icon: FileSearchIcon,
-    title: "Search by words",
-    text: "Tired of sifting through endless documents? Our cutting-edge solution makes it easy to locate information by simply searching for specific keywords and phrases.",
-  },
-  {
     icon: Signature,
+    title: "Contracts",
+    text: "Say farewell to the complexities of manual contract evaluations! Our advanced solution streamlines the review of terms and clauses, enhancing your workflow.",
+  },
+  {
+    icon: FileStack,
+    title: "Bulk extraction",
+    text: "Remove the burden of extracting data from multiple documents! Our cutting-edge solution automates the whole process, allowing you to gather information efficiently in bulk.",
+  },
+  {
+    icon: FileSearchCorner,
+    title: "Search content",
+    text: "Fed up with digging through countless files? Our state-of-the-art tool simplifies finding information by letting you search for specific keywords and phrases.",
+  },
+  {
+    icon: ChartNoAxesColumnDecreasing,
     title: "Data analysis",
-    text: "Say goodbye to tedious manual document processing! Our innovative solution automates the entire process, allowing you to streamline.",
+    text: "Wave goodbye to the monotonous task of manual document handling! Our groundbreaking solution automates the entire procedure, enabling you to optimize your processes.",
   },
 ];
 
@@ -79,7 +86,9 @@ export function FeatureCarousel() {
 
       <div
         className={styles.dots}
-        style={{ "--autoplay-duration": `${AUTOPLAY_MS}ms` } as React.CSSProperties}
+        style={
+          { "--autoplay-duration": `${AUTOPLAY_MS}ms` } as React.CSSProperties
+        }
       >
         {slides.map((_, i) => (
           <span
