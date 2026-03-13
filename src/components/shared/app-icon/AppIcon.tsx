@@ -49,12 +49,12 @@ export function AppIcon({ icon: Icon, imageSrc, position, bare = false }: AppIco
 
   return (
     <div className={`${styles.wrapper} ${position ? styles[position] : ""}`}>
-      {Icon && gradientDefs}
       <DividerIntersection color="#282828" />
       <DividerIntersection color="#282828" />
       <DividerIntersection color="#282828" />
       <DividerIntersection color="#282828" />
       <div className={styles.iconCard}>
+        {Icon && gradientDefs}
         {iconContent}
       </div>
     </div>
