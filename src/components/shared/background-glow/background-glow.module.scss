@@ -3,24 +3,69 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  overflow: hidden;
 }
 
-.glowCenter {
+.orbA,
+.orbB {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  // Use only top + left so CSS can always interpolate between numeric values
+  // (transitioning to/from "auto" causes glitches)
+  top: 0;
+  left: 0;
+  will-change: transform;
+  transition: transform 3s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-.glowLeft {
-  position: absolute;
-  top: 30%;
-  left: -100px;
+// ── Hero (default) ──
+.orbA {
+  transform: translate(-50%, 0%);
 }
 
-.glowRight {
-  position: absolute;
-  top: 40%;
-  right: -100px;
+.orbB {
+  transform: translate(100%, 45%);
+}
+
+// ── About ──
+.orbA.section_about {
+  transform: translate(-50%, 80%);
+}
+
+.orbB.section_about {
+  transform: translate(100%, -15%);
+}
+
+// ── How it works ──
+.orbA.section_how_it_works {
+  transform: translate(-50%, -15%);
+}
+
+.orbB.section_how_it_works {
+  transform: translate(100%, 80%);
+}
+
+// ── Templates ──
+.orbA.section_templates {
+  transform: translate(-50%, 80%);
+}
+
+.orbB.section_templates {
+  transform: translate(100%, -15%);
+}
+
+// ── Pricing ──
+.orbA.section_pricing {
+  transform: translate(25%, 30%);
+}
+
+.orbB.section_pricing {
+  transform: translate(35%, 25%);
+}
+
+// ── Footer ──
+.orbA.section_footer {
+  transform: translate(20%, 70%);
+}
+
+.orbB.section_footer {
+  transform: translate(30%, 65%);
 }

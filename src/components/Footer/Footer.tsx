@@ -52,6 +52,7 @@ export function Footer() {
     <>
       <PageSlot dividerTop>
         <footer
+          id="footer"
           ref={footerRef}
           className={`${styles.footer} ${footerVisible ? styles.fadeVisible : styles.fadeHidden}`}
         >

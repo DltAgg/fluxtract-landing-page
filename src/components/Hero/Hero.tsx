@@ -16,13 +16,14 @@ export function Hero() {
     return () => cancelAnimationFrame(frame);
   }, []);
 
-  const scrollToAboutSlide = useCallback((slideIndex: number) => {
-    const about = document.getElementById("about");
-    if (about) {
-      about.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-    window.dispatchEvent(new CustomEvent("about-slide", { detail: slideIndex }));
+  const scrollTo = useCallback((id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
+
+  const scrollToAboutSlide = useCallback((slideIndex: number) => {
+    scrollTo("about");
+    window.dispatchEvent(new CustomEvent("about-slide", { detail: slideIndex }));
+  }, [scrollTo]);
 
   const vis = visible ? styles.fadeVisible : styles.fadeHidden;
 
@@ -50,9 +51,9 @@ export function Hero() {
         </p>
 
         <div className={`${styles.actions} ${vis} ${styles.fadeDelay4}`}>
-          <CtaButton label="Get early access" />
+          <CtaButton label="Get early access" onClick={() => scrollTo("pricing")} />
 
-          <button className={styles.secondaryCta}>
+          <button className={styles.secondaryCta} onClick={() => scrollTo("about")}>
             See how it works
             <svg
               width="14"
