@@ -37,6 +37,42 @@
   }
 }
 
+// Fade-in animation classes
+.fadeHidden {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.fadeVisible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fadeDelay1 { transition-delay: 0.75s; }
+.fadeDelay2 { transition-delay: 1.0s; }
+.fadeDelay3 { transition-delay: 1.25s; }
+.fadeDelay4 { transition-delay: 1.5s; }
+
+// AppIcons fade — appears after all hero content
+.iconsHidden,
+.iconsVisible {
+  display: contents;
+
+  > * {
+    transition: opacity 0.8s ease-out;
+    transition-delay: 2.3s;
+  }
+}
+
+.iconsHidden > * {
+  opacity: 0;
+}
+
+.iconsVisible > * {
+  opacity: 1;
+}
+
 .badge {
   display: inline-flex;
   align-items: center;

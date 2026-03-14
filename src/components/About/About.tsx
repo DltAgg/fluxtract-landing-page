@@ -1,24 +1,86 @@
+"use client";
+
+import { useCallback, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { SectionLayout } from "@/components/shared/section-layout/SectionLayout";
 import { PageSlot } from "@/components/shared/page-slot/PageSlot";
 import { AppIcon } from "@/components/shared/app-icon/AppIcon";
 import { FeatureCarousel } from "./FeatureCarousel";
 import styles from "./About.module.scss";
 
+const iconItems = [
+  { imageSrc: "/svg-icons/pdf.svg" },
+  { imageSrc: "/svg-icons/whatsapp.svg" },
+  { imageSrc: "/svg-icons/excel.svg" },
+  { imageSrc: "/svg-icons/word.svg" },
+  { imageSrc: "/svg-icons/gmail.svg" },
+];
+
+const illustrations = [
+  "/illustrations/contract.svg",
+  "/illustrations/bulk-extraction.svg",
+  "/illustrations/search-content.svg",
+  "/illustrations/data-analysis.svg",
+];
+
+const illustrationVariants = {
+  enter: { opacity: 0, x: 30 },
+  center: { opacity: 1, x: 0 },
+  exit: { opacity: 0, x: 30 },
+};
+
 export function About() {
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  const handleSlideChange = useCallback((index: number) => {
+    setActiveSlide(index);
+  }, []);
+
+  const illustrationPanel = (
+    <div className={styles.illustrationWrapper}>
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={activeSlide}
+          src={illustrations[activeSlide]}
+          alt=""
+          className={styles.folderIllustration}
+          variants={illustrationVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        />
+      </AnimatePresence>
+    </div>
+  );
+
   const iconRowContent = (
     <div className={styles.iconRow}>
-      <AppIcon imageSrc="/svg-icons/pdf.svg" />
-      <AppIcon imageSrc="/svg-icons/whatsapp.svg" />
-      <AppIcon imageSrc="/svg-icons/excel.svg" />
-      <AppIcon imageSrc="/svg-icons/word.svg" />
-      <AppIcon imageSrc="/svg-icons/gmail.svg" />
-      <span className={styles.otherSources}>+ other sources</span>
+      {iconItems.map((item, i) => (
+        <motion.div
+          key={item.imageSrc}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: i * 0.12 }}
+        >
+          <AppIcon imageSrc={item.imageSrc} />
+        </motion.div>
+      ))}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: iconItems.length * 0.12 }}
+      >
+        <span className={styles.otherSources}>+ other sources</span>
+      </motion.div>
     </div>
   );
 
   return (
-    <>
-      <SectionLayout sectionName="about" id="about" />
+    <div id="about">
+      <SectionLayout sectionName="about" />
 
       {/* Desktop */}
       <div className={styles.desktop}>
@@ -34,20 +96,15 @@ export function About() {
             </PageSlot>
             <PageSlot noPadding hideSideRight intersections={[]}>
               <div className={styles.carouselPadded}>
-                <FeatureCarousel />
+                <FeatureCarousel onSlideChange={handleSlideChange} />
               </div>
             </PageSlot>
           </div>
           <div className={styles.columnRight}>
+            {illustrationPanel}
             <PageSlot dividerBottom dottedBg hideSideLeft />
             <PageSlot noPadding hideSideLeft intersections={[]}>
-              <div className={styles.orangePanel}>
-                <img
-                  src="/illustrations/folder.svg"
-                  alt=""
-                  className={styles.folderIllustration}
-                />
-              </div>
+              <div className={styles.orangePanel} />
             </PageSlot>
           </div>
         </div>
@@ -59,21 +116,18 @@ export function About() {
           <div className={styles.mobileIconRow}>{iconRowContent}</div>
         </PageSlot>
         <PageSlot dividerTop>
-          <FeatureCarousel />
+          <FeatureCarousel onSlideChange={handleSlideChange} />
         </PageSlot>
-        <PageSlot dividerTop dividerBottom dottedBg>
-          <div className={styles.mobileEmpty} />
-        </PageSlot>
-        <PageSlot noPadding>
-          <div className={styles.orangePanelMobile}>
-            <img
-              src="/illustrations/folder.svg"
-              alt=""
-              className={styles.folderIllustration}
-            />
-          </div>
-        </PageSlot>
+        <div className={styles.mobileIllustrationArea}>
+          {illustrationPanel}
+          <PageSlot dividerTop dividerBottom dottedBg>
+            <div className={styles.mobileEmpty} />
+          </PageSlot>
+          <PageSlot noPadding>
+            <div className={styles.orangePanelMobile} />
+          </PageSlot>
+        </div>
       </div>
-    </>
+    </div>
   );
 }

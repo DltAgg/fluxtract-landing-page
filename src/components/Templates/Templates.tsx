@@ -33,6 +33,13 @@ const templateCards = [
 const CARD_WIDTH = 397;
 const GAP = 24;
 
+function scrollToPricingForm() {
+  const form = document.getElementById("pricing-form");
+  if (form) {
+    form.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+}
+
 export function Templates() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
@@ -40,8 +47,8 @@ export function Templates() {
   const totalWidth = templateCards.length * (CARD_WIDTH + GAP) - GAP;
 
   return (
-    <>
-      <SectionLayout sectionName="templates" id="templates" />
+    <div id="templates">
+      <SectionLayout sectionName="templates" />
       <PageSlot noPadding dottedBg>
         <div ref={wrapperRef} className={styles.carouselWrapper}>
           <motion.div
@@ -52,7 +59,7 @@ export function Templates() {
             dragElastic={0.15}
           >
             {templateCards.map((card, index) => (
-              <div key={index} className={styles.card}>
+              <div key={index} className={styles.card} onClick={scrollToPricingForm} style={{ cursor: "pointer" }}>
                 <svg
                   width="0"
                   height="0"
@@ -80,9 +87,9 @@ export function Templates() {
                 />
                 <h3 className={styles.title}>{card.title}</h3>
                 <p className={styles.description}>{card.description}</p>
-                <a href="#" className={styles.link}>
+                <span className={styles.link}>
                   Get template <ChevronRight size={20} />
-                </a>
+                </span>
                 <Workflow className={styles.bgIcon} />
                 <div className={styles.decorativeCircle} />
               </div>
@@ -90,6 +97,6 @@ export function Templates() {
           </motion.div>
         </div>
       </PageSlot>
-    </>
+    </div>
   );
 }

@@ -1,10 +1,92 @@
 "use client";
 
 import { useRef, useEffect, useState, useCallback } from "react";
+import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
 import { SectionLayout } from "@/components/shared/section-layout/SectionLayout";
 import { PageSlot } from "@/components/shared/page-slot/PageSlot";
 import { Check } from "lucide-react";
 import styles from "./HowItWorks.module.scss";
+
+const TILT_CARD = 15;
+const INNER_SHIFT = 20;
+
+function TiltCard({
+  className,
+  children,
+  externalRef,
+  ...motionProps
+}: {
+  className?: string;
+  children: React.ReactNode;
+  externalRef?: React.RefObject<HTMLDivElement | null>;
+} & Omit<React.ComponentProps<typeof motion.div>, "ref">) {
+  const internalRef = useRef<HTMLDivElement>(null);
+  const rotateX = useMotionValue(0);
+  const rotateY = useMotionValue(0);
+
+  const springConfig = { stiffness: 200, damping: 20 };
+  const springX = useSpring(rotateX, springConfig);
+  const springY = useSpring(rotateY, springConfig);
+
+  const setRefs = useCallback((node: HTMLDivElement | null) => {
+    (internalRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
+    if (externalRef) {
+      (externalRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
+    }
+  }, [externalRef]);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    const el = internalRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    rotateX.set(-y * TILT_CARD);
+    rotateY.set(x * TILT_CARD);
+
+    // Set glow position
+    const pxX = e.clientX - rect.left;
+    const pxY = e.clientY - rect.top;
+    el.style.setProperty("--glow-x", `${pxX}px`);
+    el.style.setProperty("--glow-y", `${pxY}px`);
+    el.dataset.hovered = "true";
+
+    const kids = el.children;
+    for (let i = 0; i < kids.length; i++) {
+      const child = kids[i] as HTMLElement;
+      if (child.dataset.glow) continue;
+      child.style.transform = `translate3d(${x * INNER_SHIFT}px, ${y * INNER_SHIFT}px, 40px)`;
+    }
+  }, [rotateX, rotateY]);
+
+  const handleMouseLeave = useCallback(() => {
+    rotateX.set(0);
+    rotateY.set(0);
+    const el = internalRef.current;
+    if (!el) return;
+    el.dataset.hovered = "false";
+
+    const kids = el.children;
+    for (let i = 0; i < kids.length; i++) {
+      const child = kids[i] as HTMLElement;
+      if (child.dataset.glow) continue;
+      child.style.transform = "";
+    }
+  }, [rotateX, rotateY]);
+
+  return (
+    <motion.div
+      ref={setRefs}
+      className={className}
+      style={{ rotateX: springX, rotateY: springY, transformPerspective: 800, transformStyle: "preserve-3d" }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      {...motionProps}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 function usePipelineArrows(
   containerRef: React.RefObject<HTMLDivElement | null>,
@@ -76,6 +158,14 @@ export function HowItWorks() {
   const inputPillRef = useRef<HTMLDivElement>(null);
   const processingPillRef = useRef<HTMLDivElement>(null);
   const outputPillRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const gridInView = useInView(gridRef, { once: true, margin: "-200px" });
+
+  const cardAnim = (delay: number) => ({
+    initial: { opacity: 0, y: 30 },
+    animate: gridInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 },
+    transition: { duration: 0.6, ease: "easeOut" as const, delay },
+  });
 
   const { d1, arrow1, d2, arrow2 } = usePipelineArrows(
     pipelineRef,
@@ -85,15 +175,17 @@ export function HowItWorks() {
   );
 
   return (
-    <>
-      <SectionLayout sectionName="how-it-works" id="how-it-works" />
+    <div id="how-it-works">
+      <SectionLayout sectionName="how-it-works" />
       <PageSlot dottedBg>
         {/* <PageSlot dividerTop dividerBottom> */}
-        <div className={styles.grid}>
+        <div ref={gridRef} className={styles.grid}>
           {/* ── Left column ──────────────────────────────── */}
           <div className={styles.colLeft}>
             {/* Hero card */}
-            <div className={styles.cardHero}>
+            <TiltCard className={styles.cardHero} {...cardAnim(0)}>
+              <div className={styles.heroGlowStatic} data-glow="true" />
+              <div className={styles.glowMouse} data-glow="true" />
               <p className={styles.cardHeroText}>
                 Transform files into real structured data
               </p>
@@ -102,18 +194,18 @@ export function HowItWorks() {
                 alt=""
                 className={styles.cardHeroIllustration}
               />
-            </div>
+            </TiltCard>
 
             {/* Bottom row: quote + notifications */}
             <div className={styles.bottomRow}>
-              <div className={styles.cardQuote}>
+              <TiltCard className={styles.cardQuote} {...cardAnim(0.3)}>
                 <span className={styles.quoteMark}>&ldquo;</span>
                 <p className={styles.cardQuoteText}>
                   Integrates seamlessly into your workflow with minimal effort
                 </p>
-              </div>
+              </TiltCard>
 
-              <div className={styles.cardNotifications}>
+              <TiltCard className={styles.cardNotifications} {...cardAnim(0.45)}>
                 <div className={styles.notifStack}>
                   {/* Ghost copies */}
                   <div className={`${styles.featuredNotif} ${styles.featuredNotifGhost} ${styles.featuredNotifGhostTop}`}>
@@ -154,22 +246,24 @@ export function HowItWorks() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </TiltCard>
             </div>
           </div>
 
           {/* ── Right column ─────────────────────────────── */}
           <div className={styles.colRight}>
             {/* Gradient card */}
-            <div className={styles.cardGradient}>
+            <TiltCard className={styles.cardGradient} {...cardAnim(0.15)}>
               <p className={styles.cardGradientText}>
                 Accelerate and <span className={styles.light}>simplify</span>{" "}
                 your workflow
               </p>
-            </div>
+            </TiltCard>
 
             {/* Pipeline card */}
-            <div ref={pipelineRef} className={styles.cardPipeline}>
+            <TiltCard externalRef={pipelineRef} className={styles.cardPipeline} {...cardAnim(0.6)}>
+              <div className={styles.pipelineGlowStatic} data-glow="true" />
+              <div className={styles.glowMouse} data-glow="true" />
               {/* Input stage */}
               <div className={styles.pipelineStageInput}>
                 <div ref={inputPillRef} className={styles.pill}>
@@ -259,10 +353,10 @@ export function HowItWorks() {
                   </svg>
                 </div>
               )}
-            </div>
+            </TiltCard>
           </div>
         </div>
       </PageSlot>
-    </>
+    </div>
   );
 }

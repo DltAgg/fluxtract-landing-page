@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ChevronLeft,
   ChevronRight,
@@ -44,34 +45,69 @@ const slides: Slide[] = [
   },
 ];
 
-export function FeatureCarousel() {
+const fadeVariants = {
+  enter: { opacity: 0 },
+  center: { opacity: 1 },
+  exit: { opacity: 0 },
+};
+
+interface FeatureCarouselProps {
+  onSlideChange?: (index: number) => void;
+}
+
+export function FeatureCarousel({ onSlideChange }: FeatureCarouselProps) {
   const [active, setActive] = useState(0);
   const [tick, setTick] = useState(0);
+  const [contentHeight, setContentHeight] = useState<number | "auto">("auto");
+  const contentRef = useRef<HTMLDivElement>(null);
   const slide = slides[active];
 
   const goTo = useCallback((i: number) => {
     setActive(i);
     setTick((t) => t + 1);
-  }, []);
+    onSlideChange?.(i);
+  }, [onSlideChange]);
 
   const prev = () => goTo(active === 0 ? slides.length - 1 : active - 1);
   const next = () => goTo(active === slides.length - 1 ? 0 : active + 1);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setActive((i) => (i === slides.length - 1 ? 0 : i + 1));
-      setTick((t) => t + 1);
+      goTo(active === slides.length - 1 ? 0 : active + 1);
     }, AUTOPLAY_MS);
     return () => clearTimeout(timer);
-  }, [active, tick]);
+  }, [active, tick, goTo]);
+
+  // Measure content height after slide change
+  useEffect(() => {
+    if (contentRef.current) {
+      setContentHeight(contentRef.current.offsetHeight);
+    }
+  }, [active]);
 
   return (
-    <div className={styles.card}>
+    <motion.div
+      className={styles.card}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
       <div className={styles.cardHeader}>
-        <div className={styles.cardHeaderLeft}>
-          <AppIcon icon={slide.icon} bare />
-          <span className={styles.cardTitle}>{slide.title}</span>
-        </div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={active}
+            className={styles.cardHeaderLeft}
+            variants={fadeVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
+            <AppIcon icon={slide.icon} bare />
+            <span className={styles.cardTitle}>{slide.title}</span>
+          </motion.div>
+        </AnimatePresence>
         <div className={styles.cardNav}>
           <button className={styles.navButton} onClick={prev}>
             <ChevronLeft size={18} strokeWidth={2.5} />
@@ -82,7 +118,26 @@ export function FeatureCarousel() {
         </div>
       </div>
 
-      <p className={styles.cardText}>{slide.text}</p>
+      <motion.div
+        animate={{ height: contentHeight }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+        style={{ overflow: "hidden", position: "relative" }}
+      >
+        <AnimatePresence mode="wait">
+          <motion.p
+            key={active}
+            ref={contentRef}
+            className={styles.cardText}
+            variants={fadeVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
+            {slide.text}
+          </motion.p>
+        </AnimatePresence>
+      </motion.div>
 
       <div
         className={styles.dots}
@@ -98,6 +153,6 @@ export function FeatureCarousel() {
           />
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }

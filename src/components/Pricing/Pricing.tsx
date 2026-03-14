@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, useRef, useEffect, FormEvent } from "react";
 import { SectionLayout } from "@/components/shared/section-layout/SectionLayout";
 import { PageSlot } from "@/components/shared/page-slot/PageSlot";
 import { CtaButton } from "@/components/shared/cta-button/CtaButton";
@@ -13,6 +13,24 @@ export function Pricing() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const panelsRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = panelsRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "-100px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -51,13 +69,13 @@ export function Pricing() {
   }
 
   return (
-    <>
-      <SectionLayout sectionName="pricing" id="pricing" />
+    <div id="pricing">
+      <SectionLayout sectionName="pricing" />
       <PageSlot dividerTop dottedBg intersections={["topLeft", "topRight"]}>
         <div className={styles.panelWrapper}>
-          <div className={styles.panels}>
+          <div ref={panelsRef} className={`${styles.panels} ${visible ? styles.fadeVisible : styles.fadeHidden}`}>
             {/* Left panel — glass sign-up card */}
-            <div className={styles.leftPanel}>
+            <div id="pricing-form" className={styles.leftPanel}>
               <h3 className={styles.formTitle}>
                 Sign up for the
                 <br />
@@ -114,6 +132,6 @@ export function Pricing() {
           </div>
         </div>
       </PageSlot>
-    </>
+    </div>
   );
 }

@@ -40,6 +40,23 @@
   max-width: 90%;
 }
 
+// Fade-in animation classes
+.fadeHidden {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.fadeVisible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fadeDelay1 { transition-delay: 0s; }
+.fadeDelay2 { transition-delay: 0.2s; }
+.fadeDelay3 { transition-delay: 0.4s; }
+.fadeDelay4 { transition-delay: 0.6s; }
+
 .body {
   position: relative;
   z-index: 1;
