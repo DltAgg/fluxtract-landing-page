@@ -1,13 +1,60 @@
+"use client";
+
+import { useRef, useEffect, useState } from "react";
 import styles from "./Footer.module.scss";
-import Link from "next/link";
 import Image from "next/image";
 import { PageSlot } from "@/components/shared/page-slot/PageSlot";
 
 export function Footer() {
+  const footerRef = useRef<HTMLElement>(null);
+  const copyrightRef = useRef<HTMLParagraphElement>(null);
+  const [footerVisible, setFooterVisible] = useState(false);
+  const [copyrightVisible, setCopyrightVisible] = useState(false);
+
+  useEffect(() => {
+    const footerEl = footerRef.current;
+    const copyrightEl = copyrightRef.current;
+
+    const observers: IntersectionObserver[] = [];
+
+    if (footerEl) {
+      const o = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setFooterVisible(true);
+            o.disconnect();
+          }
+        },
+        { rootMargin: "-100px" }
+      );
+      o.observe(footerEl);
+      observers.push(o);
+    }
+
+    if (copyrightEl) {
+      const o = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setCopyrightVisible(true);
+            o.disconnect();
+          }
+        },
+        { rootMargin: "-50px" }
+      );
+      o.observe(copyrightEl);
+      observers.push(o);
+    }
+
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
+
   return (
     <>
       <PageSlot dividerTop>
-        <footer className={styles.footer}>
+        <footer
+          ref={footerRef}
+          className={`${styles.footer} ${footerVisible ? styles.fadeVisible : styles.fadeHidden}`}
+        >
           <div className={styles.logo}>
             <Image
               src="/logotype.png"
@@ -17,11 +64,11 @@ export function Footer() {
           </div>
 
           <nav className={styles.nav}>
-            <Link href="#home">Home</Link>
-            <Link href="#about">About</Link>
-            <Link href="#how-it-works">How it works?</Link>
-            <Link href="#templates">Templates</Link>
-            <Link href="#pricing">Pricing</Link>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#how-it-works">How it works?</a>
+            <a href="#templates">Templates</a>
+            <a href="#pricing">Pricing</a>
           </nav>
 
           <div className={styles.socials}>
@@ -62,7 +109,10 @@ export function Footer() {
       </PageSlot>
 
       <PageSlot dividerTop>
-        <p className={styles.copyright}>
+        <p
+          ref={copyrightRef}
+          className={`${styles.copyright} ${copyrightVisible ? styles.fadeVisible : styles.fadeHidden}`}
+        >
           &copy; 2026 Fluxtract. All rights reserved.
         </p>
       </PageSlot>

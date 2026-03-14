@@ -1,0 +1,26 @@
+@use "../../../styles/variables" as vars;
+
+.wrapper {
+  position: relative;
+
+  &:hover .tooltip {
+    opacity: 1;
+  }
+}
+
+.tooltip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: vars.$soft-dark;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1;
+  padding: 6px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+}

@@ -1,8 +1,6 @@
-// Font families
 $font-display: var(--font-league-spartan), sans-serif;
 $font-body: var(--font-outfit), sans-serif;
 
-// Font size scale
 $font-size-xs: 12px;
 $font-size-sm: 14px;
 $font-size-ui: 16px;
@@ -13,7 +11,6 @@ $font-size-xl: 40px;
 $font-size-2xl: 48px;
 $font-size-3xl: 59px;
 
-// Base color tokens
 $base-dark: #05070b;
 $soft-dark: #0b0e12;
 $color-accent: #d17d47;
@@ -21,7 +18,6 @@ $color-dark-orange: #af3825;
 $color-divider: #282828;
 $base-gradient: linear-gradient(114deg, #ecbc91 3%, #d17d47 20%, #af3825 80%);
 
-// Corner / border-radius scale
 $corner-xs: 4px;
 $corner-sm: 8px;
 $corner-md: 12px;
@@ -31,7 +27,6 @@ $corner-2xl: 32px;
 $corner-3xl: 60px;
 $corner-full: 100px;
 
-// Modular spacing scale — base 4px, medium-high granularity
 $spacing-1: 4px;
 $spacing-2: 8px;
 $spacing-3: 12px;
@@ -47,7 +42,6 @@ $spacing-20: 80px;
 $spacing-24: 96px;
 $spacing-32: 128px;
 
-// Breakpoints
 $bp-mobile-max: 767px;
 $bp-tablet-min: 768px;
 $bp-tablet-max: 1023px;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useCallback } from "react";
 import { motion, useMotionValue } from "motion/react";
 import { SectionLayout } from "@/components/shared/section-layout/SectionLayout";
 import { PageSlot } from "@/components/shared/page-slot/PageSlot";
@@ -33,15 +33,38 @@ const templateCards = [
 const CARD_WIDTH = 397;
 const GAP = 24;
 
+function scrollToPricingForm() {
+  const form = document.getElementById("pricing-form");
+  if (form) {
+    form.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+}
+
+const DRAG_THRESHOLD = 5;
+
 export function Templates() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
+  const pointerStart = useRef<{ x: number; y: number } | null>(null);
+
+  const handlePointerDown = useCallback((e: React.PointerEvent) => {
+    pointerStart.current = { x: e.clientX, y: e.clientY };
+  }, []);
+
+  const handleClick = useCallback((e: React.MouseEvent) => {
+    if (pointerStart.current) {
+      const dx = Math.abs(e.clientX - pointerStart.current.x);
+      const dy = Math.abs(e.clientY - pointerStart.current.y);
+      if (dx > DRAG_THRESHOLD || dy > DRAG_THRESHOLD) return;
+    }
+    scrollToPricingForm();
+  }, []);
 
   const totalWidth = templateCards.length * (CARD_WIDTH + GAP) - GAP;
 
   return (
-    <>
-      <SectionLayout sectionName="templates" id="templates" />
+    <div id="templates">
+      <SectionLayout sectionName="templates" />
       <PageSlot noPadding dottedBg>
         <div ref={wrapperRef} className={styles.carouselWrapper}>
           <motion.div
@@ -52,7 +75,7 @@ export function Templates() {
             dragElastic={0.15}
           >
             {templateCards.map((card, index) => (
-              <div key={index} className={styles.card}>
+              <div key={index} className={styles.card} onPointerDown={handlePointerDown} onClick={handleClick} style={{ cursor: "pointer" }}>
                 <svg
                   width="0"
                   height="0"
@@ -80,9 +103,9 @@ export function Templates() {
                 />
                 <h3 className={styles.title}>{card.title}</h3>
                 <p className={styles.description}>{card.description}</p>
-                <a href="#" className={styles.link}>
+                <span className={styles.link}>
                   Get template <ChevronRight size={20} />
-                </a>
+                </span>
                 <Workflow className={styles.bgIcon} />
                 <div className={styles.decorativeCircle} />
               </div>
@@ -90,6 +113,6 @@ export function Templates() {
           </motion.div>
         </div>
       </PageSlot>
-    </>
+    </div>
   );
 }

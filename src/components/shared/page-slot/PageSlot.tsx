@@ -1,3 +1,6 @@
+"use client";
+
+import { useRef, useEffect, useState } from "react";
 import styles from "./page-slot.module.scss";
 import { DividerIntersection } from "@/components/shared/divider-intersection/DividerIntersection";
 
@@ -31,10 +34,30 @@ export function PageSlot({
   const hasChildren = !!children;
   const showLeft = !hideSides && !hideSideLeft;
   const showRight = !hideSides && !hideSideRight;
+  const centerRef = useRef<HTMLDivElement>(null);
+  const [dottedVisible, setDottedVisible] = useState(false);
+
+  useEffect(() => {
+    if (!dottedBg) return;
+    const el = centerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setDottedVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "-50px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [dottedBg]);
 
   const centerClass = hideSides
     ? styles.centerFull
-    : `${styles.center} ${noPadding ? styles.noPadding : ""} ${dottedBg ? styles.dottedBg : ""}`;
+    : `${styles.center} ${noPadding ? styles.noPadding : ""} ${dottedBg ? `${styles.dottedBg} ${dottedVisible ? styles.dottedVisible : ""}` : ""}`;
 
   const slotClasses = [
     styles.pageSlot,
@@ -55,7 +78,7 @@ export function PageSlot({
       {dividerTop && <div className={styles.dividerTop} />}
       <div className={`${styles.row} ${!hasChildren ? styles.empty : ""}`}>
         {showLeft && <div className={styles.sideLeft} />}
-        <div className={centerClass}>{children}</div>
+        <div ref={dottedBg ? centerRef : undefined} className={centerClass}>{children}</div>
         {showRight && <div className={styles.sideRight} />}
       </div>
       {dividerBottom && <div className={styles.dividerBottom} />}

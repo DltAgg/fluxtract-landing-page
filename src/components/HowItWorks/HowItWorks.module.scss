@@ -1,6 +1,44 @@
 @use "../../styles/variables" as *;
 @use "../../styles/mixins" as *;
 
+/* ── Mouse-following glow ─────────────────────────────── */
+
+.glowMouse {
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba($color-dark-orange, 0.9) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  // Position controlled by CSS vars --glow-x, --glow-y
+  left: var(--glow-x, 50%);
+  top: var(--glow-y, 50%);
+  transform: translate(-50%, -50%);
+}
+
+/* ── Tilt children transition ─────────────────────────── */
+
+.cardHero,
+.cardQuote,
+.cardNotifications,
+.cardGradient,
+.cardPipeline {
+  transition: scale 0.3s ease-out;
+
+  > * {
+    transition: transform 0.3s ease-out;
+  }
+
+  &[data-hovered="true"] {
+    scale: 1.05;
+  }
+}
+
 /* ── Grid ─────────────────────────────────────────────── */
 
 .grid {
@@ -10,7 +48,7 @@
   width: 70%;
   margin: 0 auto;
   padding: $spacing-8 0;
-  overflow: hidden;
+  overflow: visible;
 
   @include tablet-and-below {
     width: 90%;
@@ -96,21 +134,34 @@
   @include mobile {
     min-height: 200px;
   }
+}
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: -45%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120%;
-    height: 120%;
-    background: radial-gradient(
-      ellipse at center,
-      rgba($color-dark-orange, 0.9) 0%,
-      transparent 70%
-    );
-    pointer-events: none;
+.heroGlowStatic {
+  position: absolute;
+  top: -45%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba($color-dark-orange, 0.9) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+// Hide static glows and show mouse glow on hover
+.cardHero[data-hovered="true"],
+.cardPipeline[data-hovered="true"] {
+  > .heroGlowStatic,
+  > .pipelineGlowStatic {
+    opacity: 0;
+  }
+
+  > .glowMouse {
+    opacity: 1;
   }
 }
 
@@ -424,18 +475,7 @@
 /* ── Card: Pipeline (bottom-right) ────────────────────── */
 
 .cardPipeline {
-  background:
-    radial-gradient(
-      circle at top right,
-      rgba($color-dark-orange, 0.55) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at bottom left,
-      rgba($color-dark-orange, 0.55) 0%,
-      transparent 50%
-    ),
-    #0b0e12;
+  background: #0b0e12;
   border-radius: $corner-xl;
   overflow: hidden;
   position: relative;
@@ -466,24 +506,48 @@
   }
 }
 
+.pipelineGlowStatic {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba($color-dark-orange, 0.55) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at bottom left,
+      rgba($color-dark-orange, 0.55) 0%,
+      transparent 50%
+    );
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
 /* ── Pipeline internals ───────────────────────────────── */
 
 .pipelineStageInput {
   display: flex;
   width: 100%;
   justify-content: flex-start;
+  position: relative;
+  z-index: 1;
 }
 
 .pipelineStageProcessing {
   display: flex;
   width: 100%;
   justify-content: center;
+  position: relative;
+  z-index: 1;
 }
 
 .pipelineStageOutput {
   display: flex;
   width: 100%;
   justify-content: flex-end;
+  position: relative;
+  z-index: 1;
 }
 
 .pill {

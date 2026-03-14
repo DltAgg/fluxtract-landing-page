@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import styles from "./MobileMenu.module.scss";
-import Link from "next/link";
+// Using <a> instead of Next.js Link for hash navigation (smooth scroll)
 import { CtaButton } from "@/components/shared/cta-button/CtaButton";
 import { GlowOrb } from "@/components/shared/background-glow/glow-orb/GlowOrb";
 
@@ -108,21 +108,21 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
             <div className={styles.content}>
               <nav className={styles.navLinks}>
-                <Link href="#home" onClick={onClose}>
+                <a href="#home" onClick={onClose}>
                   Home
-                </Link>
-                <Link href="#about" onClick={onClose}>
+                </a>
+                <a href="#about" onClick={onClose}>
                   About
-                </Link>
-                <Link href="#how-it-works" onClick={onClose}>
+                </a>
+                <a href="#how-it-works" onClick={onClose}>
                   How it works?
-                </Link>
-                <Link href="#templates" onClick={onClose}>
+                </a>
+                <a href="#templates" onClick={onClose}>
                   Templates
-                </Link>
-                <Link href="#pricing" onClick={onClose}>
+                </a>
+                <a href="#pricing" onClick={onClose}>
                   Pricing
-                </Link>
+                </a>
               </nav>
 
               <div className={styles.divider} />

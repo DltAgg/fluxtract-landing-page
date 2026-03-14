@@ -1,3 +1,6 @@
+"use client";
+
+import { useRef, useCallback } from "react";
 import type { LucideIcon } from "lucide-react";
 import { DividerIntersection } from "@/components/shared/divider-intersection/DividerIntersection";
 import styles from "./app-icon.module.scss";
@@ -9,6 +12,8 @@ interface AppIconProps {
   imageSrc?: string;
   position?: Position;
   bare?: boolean;
+  label?: string;
+  onClick?: () => void;
 }
 
 const gradientDefs = (
@@ -23,7 +28,23 @@ const gradientDefs = (
   </svg>
 );
 
-export function AppIcon({ icon: Icon, imageSrc, position, bare = false }: AppIconProps) {
+export function AppIcon({ icon: Icon, imageSrc, position, bare = false, label, onClick }: AppIconProps) {
+  const tooltipRef = useRef<HTMLSpanElement>(null);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    const el = tooltipRef.current;
+    if (!el) return;
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    el.style.left = `${e.clientX - rect.left}px`;
+    el.style.top = `${e.clientY - rect.top - el.offsetHeight - 10}px`;
+  }, []);
+
+  const tooltip = label ? (
+    <span ref={tooltipRef} className={styles.tooltip}>{label}</span>
+  ) : null;
+
+  const tooltipHandlers = label ? { onMouseMove: handleMouseMove } : {};
+
   if (bare) {
     const bareContent = imageSrc ? (
       <img src={imageSrc} alt="" width={34} height={34} />
@@ -34,8 +55,12 @@ export function AppIcon({ icon: Icon, imageSrc, position, bare = false }: AppIco
     return (
       <>
         {Icon && gradientDefs}
-        <div className={`${styles.iconCard} ${styles.bare}`}>
+        <div
+          className={`${styles.iconCard} ${styles.bare} ${label ? styles.hasTooltip : ""}`}
+          {...tooltipHandlers}
+        >
           {bareContent}
+          {tooltip}
         </div>
       </>
     );
@@ -48,7 +73,11 @@ export function AppIcon({ icon: Icon, imageSrc, position, bare = false }: AppIco
   ) : null;
 
   return (
-    <div className={`${styles.wrapper} ${position ? styles[position] : ""}`}>
+    <div
+      className={`${styles.wrapper} ${position ? styles[position] : ""} ${label ? styles.hasTooltip : ""} ${onClick ? styles.clickable : ""}`}
+      {...tooltipHandlers}
+      onClick={onClick}
+    >
       <DividerIntersection color="#282828" />
       <DividerIntersection color="#282828" />
       <DividerIntersection color="#282828" />
@@ -57,6 +86,7 @@ export function AppIcon({ icon: Icon, imageSrc, position, bare = false }: AppIco
         {Icon && gradientDefs}
         {iconContent}
       </div>
+      {tooltip}
     </div>
   );
 }
