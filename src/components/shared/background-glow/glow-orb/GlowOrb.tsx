@@ -20,7 +20,6 @@ export function GlowOrb({
       className={`${styles.glowOrb} ${className ?? ""}`}
       style={
         {
-          opacity: 0,
           width: typeof width === "number" ? `${width}px` : width,
           height: typeof height === "number" ? `${height}px` : height,
           "--orb-color": color,

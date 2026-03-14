@@ -1,18 +1,18 @@
 @keyframes orbPulse {
   0% {
-    opacity: 0;
+    opacity: 0.15;
   }
   15% {
     opacity: 1;
   }
   50% {
-    opacity: 0.35;
+    opacity: 0.5;
   }
   85% {
     opacity: 1;
   }
   100% {
-    opacity: 0;
+    opacity: 0.15;
   }
 }
 
