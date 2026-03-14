@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ChevronLeft,
@@ -14,15 +14,15 @@ import type { LucideIcon } from "lucide-react";
 import { AppIcon } from "@/components/shared/app-icon/AppIcon";
 import styles from "./About.module.scss";
 
-const AUTOPLAY_MS = 5000;
+export const AUTOPLAY_MS = 5000;
 
-interface Slide {
+export interface Slide {
   icon: LucideIcon;
   title: string;
   text: string;
 }
 
-const slides: Slide[] = [
+export const slides: Slide[] = [
   {
     icon: Signature,
     title: "Contracts",
@@ -52,31 +52,17 @@ const fadeVariants = {
 };
 
 interface FeatureCarouselProps {
-  onSlideChange?: (index: number) => void;
+  active: number;
+  tick: number;
+  onPrev: () => void;
+  onNext: () => void;
+  onGoTo: (i: number) => void;
 }
 
-export function FeatureCarousel({ onSlideChange }: FeatureCarouselProps) {
-  const [active, setActive] = useState(0);
-  const [tick, setTick] = useState(0);
+export function FeatureCarousel({ active, tick, onPrev, onNext, onGoTo }: FeatureCarouselProps) {
   const [contentHeight, setContentHeight] = useState<number | "auto">("auto");
   const contentRef = useRef<HTMLDivElement>(null);
   const slide = slides[active];
-
-  const goTo = useCallback((i: number) => {
-    setActive(i);
-    setTick((t) => t + 1);
-    onSlideChange?.(i);
-  }, [onSlideChange]);
-
-  const prev = () => goTo(active === 0 ? slides.length - 1 : active - 1);
-  const next = () => goTo(active === slides.length - 1 ? 0 : active + 1);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      goTo(active === slides.length - 1 ? 0 : active + 1);
-    }, AUTOPLAY_MS);
-    return () => clearTimeout(timer);
-  }, [active, tick, goTo]);
 
   // Measure content height after slide change
   useEffect(() => {
@@ -109,10 +95,10 @@ export function FeatureCarousel({ onSlideChange }: FeatureCarouselProps) {
           </motion.div>
         </AnimatePresence>
         <div className={styles.cardNav}>
-          <button className={styles.navButton} onClick={prev}>
+          <button className={styles.navButton} onClick={onPrev}>
             <ChevronLeft size={18} strokeWidth={2.5} />
           </button>
-          <button className={styles.navButton} onClick={next}>
+          <button className={styles.navButton} onClick={onNext}>
             <ChevronRight size={18} strokeWidth={2.5} />
           </button>
         </div>
@@ -149,7 +135,7 @@ export function FeatureCarousel({ onSlideChange }: FeatureCarouselProps) {
           <span
             key={`${i}-${i === active ? tick : ""}`}
             className={`${styles.dot} ${i === active ? styles.dotActive : ""}`}
-            onClick={() => goTo(i)}
+            onClick={() => onGoTo(i)}
           />
         ))}
       </div>

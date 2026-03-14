@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./Hero.module.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { PageSlot } from "@/components/shared/page-slot/PageSlot";
 import { CtaButton } from "@/components/shared/cta-button/CtaButton";
 import { SectionBadge } from "@/components/shared/section-badge/SectionBadge";
@@ -16,16 +16,24 @@ export function Hero() {
     return () => cancelAnimationFrame(frame);
   }, []);
 
+  const scrollToAboutSlide = useCallback((slideIndex: number) => {
+    const about = document.getElementById("about");
+    if (about) {
+      about.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    window.dispatchEvent(new CustomEvent("about-slide", { detail: slideIndex }));
+  }, []);
+
   const vis = visible ? styles.fadeVisible : styles.fadeHidden;
 
   return (
     <PageSlot id="home" dottedBg>
       <section className={styles.hero}>
       <div className={`${visible ? styles.iconsVisible : styles.iconsHidden}`}>
-        <AppIcon icon={Signature} position="topLeft" />
-        <AppIcon icon={FileStack} position="topRight" />
-        <AppIcon icon={FileSearchCorner} position="bottomLeft" />
-        <AppIcon icon={ChartNoAxesColumnDecreasing} position="bottomRight" />
+        <AppIcon icon={Signature} position="topLeft" label="Contracts" onClick={() => scrollToAboutSlide(0)} />
+        <AppIcon icon={FileStack} position="topRight" label="Bulk extraction" onClick={() => scrollToAboutSlide(1)} />
+        <AppIcon icon={FileSearchCorner} position="bottomLeft" label="Search content" onClick={() => scrollToAboutSlide(2)} />
+        <AppIcon icon={ChartNoAxesColumnDecreasing} position="bottomRight" label="Data analysis" onClick={() => scrollToAboutSlide(3)} />
       </div>
 
       <div className={styles.content}>
