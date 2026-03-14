@@ -101,6 +101,23 @@
     color: rgba(255, 255, 255, 0.25);
   }
 
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+.feedback {
+  font-size: vars.$font-size-ui;
+  font-weight: 300;
+  margin: 0;
+
+  &[data-variant="success"] {
+    color: #4ade80;
+  }
+
+  &[data-variant="error"] {
+    color: #f87171;
+  }
 }
 
 // ── Right panel (mockup) ──
